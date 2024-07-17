@@ -147,7 +147,7 @@ namespace _01_Console
             } while (!isSuccess);
 
             Console.WriteLine($"{result}단을 출력합니다.");
-            for (int i = 1; i < 10; i++)
+            for(int i = 1 ; i<10 ; i++)
             {
                 Console.WriteLine($"{result} * {i} = {result * i}");
             }
