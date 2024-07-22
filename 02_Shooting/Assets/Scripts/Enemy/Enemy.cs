@@ -30,6 +30,23 @@ public class Enemy : MonoBehaviour
     /// 시작 위치 저장용(스폰된 위치)
     /// </summary>
     float spawnY = 0.0f;
+    int hp=2;
+    public int HP
+    { 
+        get =>hp;
+        private set
+        {
+            hp = value;
+            if (hp < 1)
+            {
+                OnDie();
+            }
+        }
+    }
+    
+    /// <summary>
+    /// 이적을 죽였을 때 얻는 점수
+    /// </summary>
 
     // 실습
     // 1. 계속 월드의 왼쪽으로 움직인다.
@@ -49,7 +66,7 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        OnDie();
+        HP--;
     }
     /// <summary>
     /// 이동 처리를 하는 함수
