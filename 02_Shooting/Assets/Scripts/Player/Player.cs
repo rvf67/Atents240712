@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
     /// <summary>
@@ -57,16 +58,29 @@ public class Player : MonoBehaviour
     /// </summary>
     GameObject fireFlash;
 
+    /// <summary>
+    /// 총알 발사 이팩트가 보일 시간용
+    /// </summary>
+    WaitForSeconds flashWait;
+
+    /// <summary>
+    /// 리지드바디 컴포넌트
+    /// </summary>
+    Rigidbody2D rigid;
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();    // 인풋 액션 생성
 
         animator = GetComponent<Animator>();        // 자신과 같은 게임오브젝트 안에 있는 컴포넌트 찾기        
+        rigid = GetComponent<Rigidbody2D>();
 
         fireTransform = transform.GetChild(0);          // 첫번째 자식 찾기
         fireFlash = transform.GetChild(1).gameObject;   // 두번째 자식 찾아서 그 자식의 게임 오브젝트 저장하기
 
         fireCoroutine = FireCoroutine();            // 코루틴 저장하기
+
+        flashWait = new WaitForSeconds(0.1f);       // 총알 발사용 이팩트는 0.1초 동안만 보인다.
     }
 
     private void OnEnable()
@@ -85,6 +99,26 @@ public class Player : MonoBehaviour
         inputActions.Player.Fire.canceled -= OnFireEnd;
         inputActions.Player.Fire.performed -= OnFireStart;
         inputActions.Disable();
+    }
+
+    //private void Update()
+    //{
+    //    // Update 함수가 호출되는 시간 간격(Time.deltaTime)은 매번 다르다.
+    //    // Debug.Log(Time.deltaTime);
+
+    //    //transform.position += (Time.deltaTime * moveSpeed * inputDirection);    // 초당 moveSpeed의 속도로 inputDirection 방향으로 이동
+    //    //transform.position += (inputDirection * moveSpeed * Time.deltaTime);  // 위에 코드는 4번 곱하지만 이 코드는 6번 곱한다.
+
+    //    //transform.Translate(Time.deltaTime * moveSpeed * inputDirection);
+    //}
+
+    private void FixedUpdate()
+    {
+        // 항상 일정 시간 간격(Time.fixedDeltaTime)으로 호출된다.
+        // Debug.Log(Time.fixedDeltaTime);
+
+        // transform.Translate(Time.fixedDeltaTime * moveSpeed * inputDirection);   // 한번은 파고 들어간다.
+        rigid.MovePosition(rigid.position + Time.fixedDeltaTime * moveSpeed * (Vector2)inputDirection);
     }
 
     /// <summary>
@@ -107,7 +141,7 @@ public class Player : MonoBehaviour
     /// <param name="_">입력 정보(사용하지 않아서 칸만 잡아놓은 것)</param>
     private void OnFireStart(InputAction.CallbackContext _)
     {
-        Debug.Log("발사 시작");
+        //Debug.Log("발사 시작");
         //Fire();
         //StartCoroutine("FireCoroutine");
         //StartCoroutine(FireCoroutine());
@@ -116,19 +150,11 @@ public class Player : MonoBehaviour
 
     private void OnFireEnd(InputAction.CallbackContext _)
     {
-        Debug.Log("발사 종료");
+        //Debug.Log("발사 종료");
         //StopAllCoroutines();    // 모든 코루틴 정지시키기
         //StopCoroutine("FireCoroutine");
         //StopCoroutine(FireCoroutine());
         StopCoroutine(fireCoroutine);
-    }
-
-    private void Update()
-    {
-        //transform.position += (Time.deltaTime * moveSpeed * inputDirection);    // 초당 moveSpeed의 속도로 inputDirection 방향으로 이동
-        //transform.position += (inputDirection * moveSpeed * Time.deltaTime);  // 위에 코드는 4번 곱하지만 이 코드는 6번 곱한다.
-
-        transform.Translate(Time.deltaTime * moveSpeed * inputDirection);
     }
 
     /// <summary>
@@ -166,10 +192,22 @@ public class Player : MonoBehaviour
         // yield return new WaitForEndOfFrame();
     }
 
+    /// <summary>
+    /// 발사 이팩트용 코루틴
+    /// </summary>
+    /// <returns></returns>
     IEnumerator FlashEffect()
     {
         fireFlash.SetActive(true);  // 게임 오브젝트 활성화하기
-        yield return new WaitForSeconds(0.1f);
+        yield return flashWait;     // 잠깐 딜레이 걸기
         fireFlash.SetActive(false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if( collision.gameObject.CompareTag("Enemy") )  // 이쪽을 권장. ==에 비해 가비지가 덜 생성된다. 생성되는 코드도 훨씬 빠르게 구현되어 있음.
+        {
+            Debug.Log("적과 부딪쳤다.");
+        }
     }
 }

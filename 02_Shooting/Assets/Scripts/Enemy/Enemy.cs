@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    Explosion explosion;
+    public GameObject explosionEffect;
     /// <summary>
     /// 이동 속도
     /// </summary>
@@ -45,6 +47,10 @@ public class Enemy : MonoBehaviour
         MoveUpdate(Time.deltaTime);         // 이동 업데이트 처리
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnDie();
+    }
     /// <summary>
     /// 이동 처리를 하는 함수
     /// </summary>
@@ -58,5 +64,10 @@ public class Enemy : MonoBehaviour
             transform.position.x - deltaTime * moveSpeed,   // 현재 x위치에서 조금 왼쪽
             spawnY + Mathf.Sin(elapsedTime) * amplitude,    // 시작위치에서 sin*amplitude 결과만큼 변동
             0.0f);
+    }
+    void OnDie()
+    {
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
