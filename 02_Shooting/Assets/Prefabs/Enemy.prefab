@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 8540421417446613785, guid: 509aa1fdfece9304f94b52352ad38d53, type: 3}
   moveSpeed: 3
+  point: 1000
   frequency: 4
   amplitude: 3
 --- !u!95 &9169240634837521678

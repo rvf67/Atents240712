@@ -25,6 +25,6 @@ public class Test06_UI : TestBase
         //FindFirstObjectByType<ScoreText>();     // 첫번째것 찾기(속도는 느림, 순서가 중요할때 사용)
 
         ScoreText scoreText = FindAnyObjectByType<ScoreText>();
-        scoreText.Score += score;
+        scoreText.AddScore(score);
     }
 }

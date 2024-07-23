@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -10,7 +11,7 @@ public class Enemy : MonoBehaviour
     /// 이동 속도
     /// </summary>
     public float moveSpeed = 3.0f;
-
+    public int point = 200;
     /// <summary>
     /// 사인 그래프가 한번 왕복하는데 걸리는 시간 증폭용(커질수록 왕복 속도가 빨라진다)
     /// </summary>
@@ -25,7 +26,7 @@ public class Enemy : MonoBehaviour
     /// 시간 누적용 변수
     /// </summary>
     float elapsedTime = 0.0f;
-
+    bool isAlive;
     /// <summary>
     /// 시작 위치 저장용(스폰된 위치)
     /// </summary>
@@ -39,6 +40,7 @@ public class Enemy : MonoBehaviour
             hp = value;
             if (hp < 1)
             {
+                isAlive = true;
                 OnDie();
             }
         }
@@ -84,7 +86,14 @@ public class Enemy : MonoBehaviour
     }
     void OnDie()
     {
-        Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        if (isAlive)
+        {
+            isAlive = false;
+
+            ScoreText scoreText = FindAnyObjectByType<ScoreText>();
+            scoreText.AddScore(point);
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }
