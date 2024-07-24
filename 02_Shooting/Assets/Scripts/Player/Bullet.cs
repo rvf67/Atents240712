@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : RecycleObject
 {
     /// <summary>
     /// 총알의 이동속도
@@ -51,7 +51,8 @@ public class Bullet : MonoBehaviour
         Debug.Log("충돌 시작");
         Instantiate(hitEffect, transform.position, Quaternion.identity);
 
-        Destroy(gameObject);    // 자기자신 제거하기
+        //Destroy(gameObject);    // 자기자신 제거하기
+        gameObject.SetActive(false);
     }
 
     //private void OnCollisionStay2D(Collision2D collision)
