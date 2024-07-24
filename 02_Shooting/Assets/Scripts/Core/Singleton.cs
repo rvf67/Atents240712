@@ -3,50 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// ÀÌ Å¬·¡½º´Â Á¦³×¸¯ Å¸ÀÔÀÌ´Ù.
-// ÀÌ Å¬·¡½ºÀÇ TÅ¸ÀÔÀº component¸¦ »ó¼Ó¹ŞÀº Å¸ÀÔ¸¸ °¡´ÉÇÏ´Ù.
+// ì´ í´ë˜ìŠ¤ëŠ” ì œë„¤ë¦­ íƒ€ì…ì´ë‹¤.
+// ì´ í´ë˜ìŠ¤ì˜ Tíƒ€ì…ì€ componentë¥¼ ìƒì†ë°›ì€ íƒ€ì…ë§Œ ê°€ëŠ¥í•˜ë‹¤.
 public class Singleton<T> : MonoBehaviour where T : Component
 {
     /// <summary>
-    /// ÀÌ ½Ì±ÛÅæÀÌ ÃÊ±âÈ­ µÈÀûÀÌ ÀÖ´ÂÁö¸¦ ±â·ÏÇÏ´Â º¯¼ö
+    /// ì´ ì‹±ê¸€í†¤ì´ ì´ˆê¸°í™” ëœì ì´ ìˆëŠ”ì§€ë¥¼ ê¸°ë¡í•˜ëŠ” ë³€ìˆ˜
     /// </summary>
     private bool isInitialize = false;
 
     /// <summary>
-    /// Á¾·áÃ³¸®¿¡ µé¾î°¬´ÂÁö È®ÀÎ¿ë º¯¼ö(static ¸É¹ö ÇÔ¼ö ¾È¿¡¼­´Â static ¸É¹ö º¯¼ö¸¸ Á¢±Ù °¡´É)
+    /// ì¢…ë£Œì²˜ë¦¬ì— ë“¤ì–´ê°”ëŠ”ì§€ í™•ì¸ìš© ë³€ìˆ˜(static ë§´ë²„ í•¨ìˆ˜ ì•ˆì—ì„œëŠ” static ë§´ë²„ ë³€ìˆ˜ë§Œ ì ‘ê·¼ ê°€ëŠ¥)
     /// </summary>
     private static bool isShutdown = false;
 
     /// <summary>
-    /// ÀÌ ½Ì±ÛÅæÀÇ ÀÎ½ºÅÏ½º(new ÇÑ°Í)
+    /// ì´ ì‹±ê¸€í†¤ì˜ ì¸ìŠ¤í„´ìŠ¤(new í•œê²ƒ)
     /// </summary>
     private static T instance = null;
 
     /// <summary>
-    /// ÀÌ ½Ì±ÛÅæ¿¡ Á¢±ÙÇÏ±â À§ÇÑ ÇÁ·ÎÆÛÆ¼
+    /// ì´ ì‹±ê¸€í†¤ì— ì ‘ê·¼í•˜ê¸° ìœ„í•œ í”„ë¡œí¼í‹°
     /// </summary>
     public static T Instance
     {
         get
         {
-            if (isShutdown)  // Á¾·áÃ³¸®¿¡ µé¾î°£ »óÈ²ÀÌ¸é
+            if(isShutdown)  // ì¢…ë£Œì²˜ë¦¬ì— ë“¤ì–´ê°„ ìƒí™©ì´ë©´
             {
-                Debug.LogWarning("½Ì±ÛÅæÀÌ »èÁ¦ Áß¿¡ ¿ä±¸¹ŞÀ½.");     // °æ°í Ãâ·Â
-                return null;                                        // null ¸®ÅÏ
+                Debug.LogWarning("ì‹±ê¸€í†¤ì´ ì‚­ì œ ì¤‘ì— ìš”êµ¬ë°›ìŒ.");     // ê²½ê³  ì¶œë ¥
+                return null;                                        // null ë¦¬í„´
             }
 
-            if (instance == null)
+            if(instance == null)
             {
-                T singleton = FindAnyObjectByType<T>();     // ÀÏ´Ü ¾À¿¡ ½Ì±ÛÅæÀÌ ÀÖ´ÂÁö Ã£À½
-                if (singleton == null)
+                T singleton = FindAnyObjectByType<T>();     // ì¼ë‹¨ ì”¬ì— ì‹±ê¸€í†¤ì´ ìˆëŠ”ì§€ ì°¾ìŒ
+                if(singleton == null )
                 {
-                    // ¾À¿¡ ½Ì±ÛÅæÀÌ ¾øÀ½
-                    GameObject obj = new GameObject();      // Transform ÇÏ³ª¸¸ µé¾îÀÖ´Â ºó °ÔÀÓ ¿ÀºêÁ§Æ® ¸¸µé±â
-                    obj.name = $"{typeof(T)}_Singleton";    // ½Ì±ÛÅæ °ÔÀÓ ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§ ÁöÁ¤ÇÏ±â
-                    singleton = obj.AddComponent<T>();      // ½Ì±ÛÅæ °ÔÀÓ ¿ÀºêÁ§Æ®¿¡ ½Ì±ÛÅæ ¿ë ÄÄÆ÷³ÍÆ® Ãß°¡
+                    // ì”¬ì— ì‹±ê¸€í†¤ì´ ì—†ìŒ
+                    GameObject obj = new GameObject();      // Transform í•˜ë‚˜ë§Œ ë“¤ì–´ìˆëŠ” ë¹ˆ ê²Œì„ ì˜¤ë¸Œì íŠ¸ ë§Œë“¤ê¸°
+                    obj.name = $"{typeof(T)}_Singleton";    // ì‹±ê¸€í†¤ ê²Œì„ ì˜¤ë¸Œì íŠ¸ì˜ ì´ë¦„ ì§€ì •í•˜ê¸°
+                    singleton = obj.AddComponent<T>();      // ì‹±ê¸€í†¤ ê²Œì„ ì˜¤ë¸Œì íŠ¸ì— ì‹±ê¸€í†¤ ìš© ì»´í¬ë„ŒíŠ¸ ì¶”ê°€
                 }
-                instance = singleton;       // Ã£Àº °ÍÀÌ³ª ¸¸µç °ÍÀ» ÀúÀåÇÏ±â
-                DontDestroyOnLoad(instance.gameObject);     // ¾ÀÀÌ ´İÈ÷´õ¶óµµ ½Ì±ÛÅæ¿ë °ÔÀÓ¿ÀºêÁ§Æ®´Â À¯ÁöÇÏ±â(»èÁ¦µÇÁö ¾Ê°Ô ÇÏ±â)
+                instance = singleton;       // ì°¾ì€ ê²ƒì´ë‚˜ ë§Œë“  ê²ƒì„ ì €ì¥í•˜ê¸°
+                DontDestroyOnLoad(instance.gameObject);     // ì”¬ì´ ë‹«íˆë”ë¼ë„ ì‹±ê¸€í†¤ìš© ê²Œì„ì˜¤ë¸Œì íŠ¸ëŠ” ìœ ì§€í•˜ê¸°(ì‚­ì œë˜ì§€ ì•Šê²Œ í•˜ê¸°)
             }
             return instance;
         }
@@ -56,46 +56,46 @@ public class Singleton<T> : MonoBehaviour where T : Component
     {
         if (instance == null)
         {
-            // Ã¹¹øÂ°·Î ¸¸µé¾îÁø ½Ì±ÛÅæ
-            instance = this as T;       // this¸¦ TÅ¸ÀÔÀ¸·Î Ä³½ºÆÃ. Ä³½ºÆÃÀÌ ¾ÈµÇ¸é null
+            // ì²«ë²ˆì§¸ë¡œ ë§Œë“¤ì–´ì§„ ì‹±ê¸€í†¤
+            instance = this as T;       // thisë¥¼ Tíƒ€ì…ìœ¼ë¡œ ìºìŠ¤íŒ…. ìºìŠ¤íŒ…ì´ ì•ˆë˜ë©´ null
             DontDestroyOnLoad(instance.gameObject);
         }
         else
         {
-            // ÀÌ¹Ì ¸¸µé¾îÁø ½Ì±ÛÅæÀÌ ÀÖ´Â »óÈ²
-            if (instance != this)           // ÀÌ¹Ì ¸¸µé¾îÁø °ÍÀÌ ÀÚ½ÅÀÌ ¾Æ´Ï¸é
-            {
-                Destroy(this.gameObject);   // ½º½º·Î ¾ø¾îÁö±â
+            // ì´ë¯¸ ë§Œë“¤ì–´ì§„ ì‹±ê¸€í†¤ì´ ìˆëŠ” ìƒí™©
+            if (instance != this)           // ì´ë¯¸ ë§Œë“¤ì–´ì§„ ê²ƒì´ ìì‹ ì´ ì•„ë‹ˆë©´
+            { 
+                Destroy(this.gameObject);   // ìŠ¤ìŠ¤ë¡œ ì—†ì–´ì§€ê¸°
             }
         }
     }
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;      // ¾ÀÀÌ ·ÎµùµÇ¾úÀ» ¶§ OnSceneLoadedÇÔ¼ö¸¦ ½ÇÇàÇÏµµ·Ï µî·Ï
+        SceneManager.sceneLoaded += OnSceneLoaded;      // ì”¬ì´ ë¡œë”©ë˜ì—ˆì„ ë•Œ OnSceneLoadedí•¨ìˆ˜ë¥¼ ì‹¤í–‰í•˜ë„ë¡ ë“±ë¡
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;      // µî·Ï ÇØÁ¦
+        SceneManager.sceneLoaded -= OnSceneLoaded;      // ë“±ë¡ í•´ì œ
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (!isInitialize)
+        if(!isInitialize)
         {
-            // ÇÑ¹øµµ ÃÊ±âÈ­ µÇÁö ¾Ê¾ÒÀ¸¸é
-            OnPreInitialize();      // ÇÑ¹ø¸¸ ½ÇÇàÇÏ´Â ÃÊ±âÈ­ ÇÔ¼ö ½ÇÇà
+            // í•œë²ˆë„ ì´ˆê¸°í™” ë˜ì§€ ì•Šì•˜ìœ¼ë©´
+            OnPreInitialize();      // í•œë²ˆë§Œ ì‹¤í–‰í•˜ëŠ” ì´ˆê¸°í™” í•¨ìˆ˜ ì‹¤í–‰
         }
-        if (mode != LoadSceneMode.Additive)
+        if(mode != LoadSceneMode.Additive)
         {
-            // Additive¸ğµå·Î ¾ÀÀÌ ·ÎµùµÇÁö ¾Ê¾Ò´Ù¸é
-            OnInitialize();         // ¹İº¹ ÃÊ±âÈ­ ÇÔ¼ö ½ÇÇà
+            // Additiveëª¨ë“œë¡œ ì”¬ì´ ë¡œë”©ë˜ì§€ ì•Šì•˜ë‹¤ë©´
+            OnInitialize();         // ë°˜ë³µ ì´ˆê¸°í™” í•¨ìˆ˜ ì‹¤í–‰
         }
     }
 
     /// <summary>
-    /// ½Ì±ÛÅæÀÌ ¸¸µé¾îÁ³À» ¶§ ´Ü ÇÑ¹ø¸¸ È£ÃâµÇ´Â ÇÔ¼ö
+    /// ì‹±ê¸€í†¤ì´ ë§Œë“¤ì–´ì¡Œì„ ë•Œ ë‹¨ í•œë²ˆë§Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
     /// </summary>
     protected virtual void OnPreInitialize()
     {
@@ -103,7 +103,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
     }
 
     /// <summary>
-    /// ½Ì±ÛÅæÀÌ ¸¸µé¾îÁö°í ¾ÀÀÌ º¯°æµÉ ¶§¸¶´Ù È£ÃâµÉ ÇÔ¼ö(Additive´Â ¾ÈµÊ)
+    /// ì‹±ê¸€í†¤ì´ ë§Œë“¤ì–´ì§€ê³  ì”¬ì´ ë³€ê²½ë  ë•Œë§ˆë‹¤ í˜¸ì¶œë  í•¨ìˆ˜(AdditiveëŠ” ì•ˆë¨)
     /// </summary>
     protected virtual void OnInitialize()
     {
@@ -116,44 +116,44 @@ public class Singleton<T> : MonoBehaviour where T : Component
 }
 
 
-// ½Ì±ÛÅæ : »ı¼ºµÇ´Â °´Ã¼°¡ ¹«Á¶°Ç 1°³ÀÎ Å¬·¡½º
+// ì‹±ê¸€í†¤ : ìƒì„±ë˜ëŠ” ê°ì²´ê°€ ë¬´ì¡°ê±´ 1ê°œì¸ í´ë˜ìŠ¤
 public class TestSingleton
 {
-    private static TestSingleton instance = null;  // °ø¿ëÀ¸·Î »ç¿ëµÇ´Â °÷¿¡ ÀÎ½ºÅÏ½ºÀÇ ÂüÁ¶¸¦ ÀúÀå
+    private static TestSingleton instance = null;  // ê³µìš©ìœ¼ë¡œ ì‚¬ìš©ë˜ëŠ” ê³³ì— ì¸ìŠ¤í„´ìŠ¤ì˜ ì°¸ì¡°ë¥¼ ì €ì¥
 
     public static TestSingleton Instance
     {
         get
         {
-            if (instance == null)    // ÀÌÀü¿¡ ÀÎ½ºÅÏ½º°¡ ¸¸µé¾îÁø ÀûÀÌ ¾øÀ¸¸é
+            if(instance == null)    // ì´ì „ì— ì¸ìŠ¤í„´ìŠ¤ê°€ ë§Œë“¤ì–´ì§„ ì ì´ ì—†ìœ¼ë©´
             {
-                instance = new TestSingleton(); // ÀÎ½ºÅÏ½º »ı¼º
+                instance = new TestSingleton(); // ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
             }
-            return instance;        // ÀÖ´ø °ÍÀÌ³ª »õ·Î ¸¸µé¾îÁø °ÍÀ» ¸®ÅÏ
+            return instance;        // ìˆë˜ ê²ƒì´ë‚˜ ìƒˆë¡œ ë§Œë“¤ì–´ì§„ ê²ƒì„ ë¦¬í„´
         }
     }
 
-    private TestSingleton()  // ¸ğµç »ı¼ºÀÚ´Â publicÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
+    private TestSingleton()  // ëª¨ë“  ìƒì„±ìëŠ” publicì´ ì•„ë‹ˆì–´ì•¼ í•œë‹¤.
     {
     }
 }
 
 public class TestClass
 {
-    // ½ºÅÂÆ½ ¸É¹ö º¯¼ö´Â ¸ğµç °´Ã¼¿¡¼­ °ø¿ëÀ¸·Î »ç¿ëµÈ´Ù.
+    // ìŠ¤íƒœí‹± ë§´ë²„ ë³€ìˆ˜ëŠ” ëª¨ë“  ê°ì²´ì—ì„œ ê³µìš©ìœ¼ë¡œ ì‚¬ìš©ëœë‹¤.
     public static int staticNumber = 0;
 
-    // »ı¼ºÀÚ : °´Ã¼°¡ »ı¼ºµÉ ¶§(new µÉ¶§) ½ÇÇàµÇ´Â ÄÚµå
-    // »ı¼ºÀÚ´Â ¿©·¯°³¸¦ ¸¸µé¼ö ÀÖ´Ù.(ÆÄ¶ó¸ŞÅÍ´Â ´Ş¶ó¾ßÇÔ)
-    // »ı¼ºÀÚ¸¦ ÇÏ³ªµµ ÀÛ¼ºÇÏÁö ¾ÊÀ¸¸é ±âº»»ı¼ºÀÚ°¡ ÀÚµ¿À¸·Î »ı¼ºµÈ´Ù.
-    public TestClass()  // ±âº»»ı¼ºÀÚ
+    // ìƒì„±ì : ê°ì²´ê°€ ìƒì„±ë  ë•Œ(new ë ë•Œ) ì‹¤í–‰ë˜ëŠ” ì½”ë“œ
+    // ìƒì„±ìëŠ” ì—¬ëŸ¬ê°œë¥¼ ë§Œë“¤ìˆ˜ ìˆë‹¤.(íŒŒë¼ë©”í„°ëŠ” ë‹¬ë¼ì•¼í•¨)
+    // ìƒì„±ìë¥¼ í•˜ë‚˜ë„ ì‘ì„±í•˜ì§€ ì•Šìœ¼ë©´ ê¸°ë³¸ìƒì„±ìê°€ ìë™ìœ¼ë¡œ ìƒì„±ëœë‹¤.
+    public TestClass()  // ê¸°ë³¸ìƒì„±ì
     {
-        Debug.Log("TestClass »ı¼ºÀÚ ½ÇÇà");
+        Debug.Log("TestClass ìƒì„±ì ì‹¤í–‰");
     }
 
     public TestClass(int i)
     {
-        Debug.Log($"TestClass »ı¼ºÀÚ ½ÇÇà : {i}");
+        Debug.Log($"TestClass ìƒì„±ì ì‹¤í–‰ : {i}");
     }
 
     public void TestPrint()

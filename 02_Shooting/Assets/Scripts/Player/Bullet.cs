@@ -21,7 +21,8 @@ public class Bullet : RecycleObject
 
     private void Start()
     {
-        Destroy(gameObject, lifeTime);
+        //Destroy(gameObject, lifeTime);
+        DisableTimer(lifeTime);
     }
 
     // 실습
@@ -48,7 +49,7 @@ public class Bullet : RecycleObject
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 충돌이 시작되었을 때 실행
-        Debug.Log("충돌 시작");
+        //Debug.Log("충돌 시작");
         Instantiate(hitEffect, transform.position, Quaternion.identity);
 
         //Destroy(gameObject);    // 자기자신 제거하기

@@ -9,21 +9,28 @@ public class Test06_UI : TestBase
     {
         int score = 100;
 
-        // ÀÌ¸§À¸·Î Ã£±â
-        //GameObject obj = GameObject.Find("ScoreText");  // ºñÃßÃµ : ¹®ÀÚ¿­·Î °Ë»ö, ÀÌ¸§ÀÌ Áßº¹µÇ¸é Àß¸øÃ£À» ¼ö ÀÖÀ½        
+        // ì´ë¦„ìœ¼ë¡œ ì°¾ê¸°
+        //GameObject obj = GameObject.Find("ScoreText");  // ë¹„ì¶”ì²œ : ë¬¸ìì—´ë¡œ ê²€ìƒ‰, ì´ë¦„ì´ ì¤‘ë³µë˜ë©´ ì˜ëª»ì°¾ì„ ìˆ˜ ìˆìŒ        
 
-        // ÅÂ±×·Î Ã£±â
-        //GameObject obj = GameObject.FindGameObjectWithTag("Test");      // °°Àº ÅÂ±× Áß ÇÏ³ª¸¸ Ã£±â
-        //GameObject[] objs = GameObject.FindGameObjectsWithTag("Test");  // °°Àº ÅÂ±× ¸ğµÎ Ã£±â
-        // GameObject.FindWithTag;  // ³»ºÎ¿¡¼­ FindGameObjectWithTag È£Ãâ
+        // íƒœê·¸ë¡œ ì°¾ê¸°
+        //GameObject obj = GameObject.FindGameObjectWithTag("Test");      // ê°™ì€ íƒœê·¸ ì¤‘ í•˜ë‚˜ë§Œ ì°¾ê¸°
+        //GameObject[] objs = GameObject.FindGameObjectsWithTag("Test");  // ê°™ì€ íƒœê·¸ ëª¨ë‘ ì°¾ê¸°
+        // GameObject.FindWithTag;  // ë‚´ë¶€ì—ì„œ FindGameObjectWithTag í˜¸ì¶œ
         //Debug.Log(obj.name);
 
-        // ÄÄÆ÷³ÍÆ® Å¸ÀÔÀ¸·Î Ã£±â(Æ¯Á¤ ÄÄÆ÷³ÍÆ®·Î ¸®ÅÏ)
-        //ScoreText scoreText = FindObjectOfType<ScoreText>();    // ÇÏ³ª¸¸ Ã£±â
-        //ScoreText[] scoreTexts = FindObjectsByType<ScoreText>(FindObjectsInactive.Include, FindObjectsSortMode.None);   // °°Àº Á¾·ù ¸ğµÎ Ã£±â
-        //FindAnyObjectByType<ScoreText>();       // ÇÏ³ª¸¸ Ã£±â(FindObjectOfTypeº¸´Ù ºü¸§)
-        //FindFirstObjectByType<ScoreText>();     // Ã¹¹øÂ°°Í Ã£±â(¼Óµµ´Â ´À¸², ¼ø¼­°¡ Áß¿äÇÒ¶§ »ç¿ë)
+        // ì»´í¬ë„ŒíŠ¸ íƒ€ì…ìœ¼ë¡œ ì°¾ê¸°(íŠ¹ì • ì»´í¬ë„ŒíŠ¸ë¡œ ë¦¬í„´)
+        //ScoreText scoreText = FindObjectOfType<ScoreText>();    // í•˜ë‚˜ë§Œ ì°¾ê¸°
+        //ScoreText[] scoreTexts = FindObjectsByType<ScoreText>(FindObjectsInactive.Include, FindObjectsSortMode.None);   // ê°™ì€ ì¢…ë¥˜ ëª¨ë‘ ì°¾ê¸°
+        //FindAnyObjectByType<ScoreText>();       // í•˜ë‚˜ë§Œ ì°¾ê¸°(FindObjectOfTypeë³´ë‹¤ ë¹ ë¦„)
+        //FindFirstObjectByType<ScoreText>();     // ì²«ë²ˆì§¸ê²ƒ ì°¾ê¸°(ì†ë„ëŠ” ëŠë¦¼, ìˆœì„œê°€ ì¤‘ìš”í• ë•Œ ì‚¬ìš©)
 
+        ScoreText scoreText = FindAnyObjectByType<ScoreText>();
+        scoreText.AddScore(score);
+    }
+
+    protected override void OnTest2(InputAction.CallbackContext context)
+    {
+        int score = 1000;
         ScoreText scoreText = FindAnyObjectByType<ScoreText>();
         scoreText.AddScore(score);
     }

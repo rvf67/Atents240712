@@ -7,8 +7,8 @@ public class Test07_Singleton : TestBase
 {
     private void Start()
     {
-        // °´Ã¼ »ı¼º ¹æ¹ı
-        //TestSingleton test = new TestSingleton(); // publicÀÎ »ı¼ºÀÚ°¡ ¾ø¾î¼­ new ºÒ°¡´É
+        // ê°ì²´ ìƒì„± ë°©ë²•
+        //TestSingleton test = new TestSingleton(); // publicì¸ ìƒì„±ìê°€ ì—†ì–´ì„œ new ë¶ˆê°€ëŠ¥
         TestClass test2 = new TestClass();
         TestClass test3 = new TestClass(10);
         //test2.staticNumber = 10;
@@ -18,15 +18,15 @@ public class Test07_Singleton : TestBase
         test3.TestPrint();
 
         //TestSingleton.Instance.test = 20;
-
     }
 
     protected override void OnTest1(InputAction.CallbackContext context)
     {
         Debug.Log(SimpleFactory.Instance.gameObject);
     }
+
     protected override void OnTest2(InputAction.CallbackContext context)
     {
-        SimpleFactory.Instance.GetBullet();
+        SimpleFactory.Instance.GetBullet(new Vector3(0,1,0), 45);
     }
 }
