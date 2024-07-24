@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 582568465
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 66e2bee867275422c9de0a02da52d95b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -100,10 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6f5b3157c7c06478304a358f8e6054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: 30
   moveSpeed: 3
   frequency: 2
   amplitude: 3
   explosionEffect: {fileID: 6778856093152883138, guid: 2da783ff44dd1de40a0a0ec7d0ddbc66, type: 3}
+  point: 10
 --- !u!95 &9169240634837521678
 Animator:
   serializedVersion: 5
