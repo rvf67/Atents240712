@@ -133,7 +133,8 @@ public class Enemy : RecycleObject
             ScoreText scoreText = FindAnyObjectByType<ScoreText>();
             scoreText.AddScore(point);   // 점수 증가
         
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);  // 터지는 이팩트 나오기
+            //Instantiate(explosionEffect, transform.position, Quaternion.identity);  // 터지는 이팩트 나오기
+            Factory.Instance.GetExplosion(transform.position);
             //Destroy(gameObject);        // 자기 자신 삭제
             DisableTimer();
         }
