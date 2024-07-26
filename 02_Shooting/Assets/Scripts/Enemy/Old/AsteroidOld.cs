@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Asteroid : RecycleObject
+public class AsteroidOld : RecycleObject
 {
     public AnimationCurve rotateSpeedCurve;
     public float minMovespeed = 2f;

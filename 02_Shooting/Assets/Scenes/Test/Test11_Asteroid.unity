@@ -240,10 +240,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5149804750588683478, guid: abc470b208c277e4fbfaeba770bdb9b3, type: 3}
-      propertyPath: enemyPrefab
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4588329885268356898, guid: abc470b208c277e4fbfaeba770bdb9b3, type: 3}
       propertyPath: m_Name
       value: AsteroidSpawner
@@ -289,19 +285,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8974689899236034128, guid: abc470b208c277e4fbfaeba770bdb9b3, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4870102546709772917, guid: abc470b208c277e4fbfaeba770bdb9b3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1225344703}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abc470b208c277e4fbfaeba770bdb9b3, type: 3}
---- !u!4 &349794262 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4870102546709772917, guid: abc470b208c277e4fbfaeba770bdb9b3, type: 3}
-  m_PrefabInstance: {fileID: 230609473}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &469500344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -359,37 +346,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f1b802963cbfe4d917c44ff32094b9, type: 3}
---- !u!1 &1225344702
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1225344703}
-  m_Layer: 0
-  m_Name: DestinationArea
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1225344703
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1225344702}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 349794262}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1520258685
 PrefabInstance:
   m_ObjectHideFlags: 0
