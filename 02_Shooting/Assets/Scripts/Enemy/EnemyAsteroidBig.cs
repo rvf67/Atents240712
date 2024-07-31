@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyAsteroidBig : EnemyBase
 {
@@ -55,6 +56,29 @@ public class EnemyAsteroidBig : EnemyBase
     /// </summary>
     Vector3 direction;
 
+    /// <summary>
+    /// 생성될 작은 운석의 개수
+    /// </summary>
+    int randomSmallAmount;
+    /// <summary>
+    /// 랜덤생성 최소 개수
+    /// </summary>
+    public int randomSmallMin=3;
+    /// <summary>
+    /// 랜덤생성 최대 개수
+    /// </summary>
+    public int randomSmallMax=7;
+
+    [Range(0f, 1f)]
+    /// <summary>
+    /// 크리티컬 확률
+    /// </summary>
+    public float criticalPercentage=0.05f;
+    /// <summary>
+    /// 크리티컬 생성 배율
+    /// </summary>
+    public float criticalMultiplier = 3.0f;
+    
     /// <summary>
     /// 원래 점수
     /// </summary>
@@ -127,6 +151,27 @@ public class EnemyAsteroidBig : EnemyBase
         OnDie();
     }
 
+    /// <summary>
+    /// 큰 운석이 죽으면 작은 운석으로 분열하며 일정확률로 크리티컬이 터짐
+    /// 각도는 일정한 간격으로 퍼짐
+    /// </summary>
+    protected override void OnDie()
+    {
+        base.OnDie();
+        randomSmallAmount=Random.Range(randomSmallMin,randomSmallMax); //개수 랜점 지정
+        if (Random.value < criticalPercentage) //크리티컬이면 수정
+        {
+            randomSmallAmount=Mathf.RoundToInt(randomSmallMax*criticalMultiplier);
+        }
+        float angleDiff = 360 / randomSmallAmount; //사이각 구하기
+        if (!isAlive)
+        {
+            for (int i = 0; i < randomSmallAmount; i++)
+            {
+                Factory.Instance.GetAsteroidSmall(transform.position, Quaternion.Euler(0,0,angleDiff*i)*direction); //일정한 간격으로 생성
+            }
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -139,6 +184,3 @@ public class EnemyAsteroidBig : EnemyBase
 // 자폭했을 때는 점수를 얻을 수 없다.
 // 큰 운석은 자폭할 시간이 가까워질 수록 빨갛게 변한다.
 
-// 작은 운석 만들기
-// 죽을 때 작은 운석 생성(랜덤한 개수)
-// 생성된 작은 운석은 사방으로 퍼져나간다.

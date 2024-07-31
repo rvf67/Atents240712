@@ -165,6 +165,7 @@ MonoBehaviour:
   point: 10
   maxHP: 1
   moveSpeed: 3
+  isAlive: 1
   minMoveSpeed: 2
   maxMoveSpeed: 4
   minRotateSpeed: 30
@@ -228,3 +229,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  randomSmallMin: 3
+  randomSmallMax: 10

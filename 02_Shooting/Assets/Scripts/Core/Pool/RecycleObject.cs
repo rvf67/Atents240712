@@ -20,6 +20,14 @@ public class RecycleObject : MonoBehaviour
         transform.localRotation = Quaternion.identity;
 
         StopAllCoroutines();    // 이전에 실행 중이던 코루틴 모두 정지
+
+        OnReset();
+    }
+    /// <summary>
+    /// 재활용될 때 초기화 시키는 함수
+    /// </summary>
+    protected virtual void OnReset()
+    { 
     }
 
     protected virtual void OnDisable()
@@ -35,8 +43,7 @@ public class RecycleObject : MonoBehaviour
     {
         StartCoroutine(LifeOver(time));
     }
-
-    IEnumerator LifeOver(float time = 0.0f)
+        IEnumerator LifeOver(float time = 0.0f)
     {
         yield return new WaitForSeconds(time);
         gameObject.SetActive(false);

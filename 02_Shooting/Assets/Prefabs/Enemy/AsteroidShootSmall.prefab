@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1452287515696015921}
   - component: {fileID: 1817059018543947316}
   - component: {fileID: 2195134457011399304}
-  - component: {fileID: 8147577030592421961}
+  - component: {fileID: 6575400425511509349}
   m_Layer: 7
   m_Name: AsteroidShootSmall
   m_TagString: Enemy
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.925
+  m_Radius: 0.37
 --- !u!50 &2195134457011399304
 Rigidbody2D:
   serializedVersion: 4
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8147577030592421961
+--- !u!114 &6575400425511509349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,16 +162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 30
-  point: 10
+  point: 3
   maxHP: 1
-  moveSpeed: 3
-  minMoveSpeed: 2
-  maxMoveSpeed: 4
-  minRotateSpeed: 30
-  maxRotateSpeed: 720
-  rotateSpeedCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  moveSpeed: 7
+  baseSpeed: 7
+  rotateSpeed: 0

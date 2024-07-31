@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Test
+  - Border
   layers:
   - Default
   - TransparentFX
@@ -14,10 +16,10 @@ TagManager:
   - UI
   - Player
   - Enmey
-  - 
-  - 
-  - 
-  - 
+  - PlayerBullet
+  - Border
+  - Killzone
+  - Item
   - 
   - 
   - 
@@ -47,6 +49,9 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 582568465
+    locked: 0
+  - name: Item
+    uniqueID: 3370062581
     locked: 0
   - name: Player
     uniqueID: 3759079447

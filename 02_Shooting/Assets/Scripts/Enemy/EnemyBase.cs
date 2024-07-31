@@ -28,7 +28,7 @@ public class EnemyBase : RecycleObject
     /// <summary>
     /// 생존 여부를 표현하는 변수
     /// </summary>
-    bool isAlive = true;
+    public bool isAlive = true;
 
     /// <summary>
     /// 적의 HP
@@ -59,11 +59,6 @@ public class EnemyBase : RecycleObject
     /// 자신이 죽었음을 알리는 델리게이트 int는 점수
     /// </summary>
     public Action<int> onDie;
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        OnReset();
-    }
 
 
     private void Update()
@@ -77,7 +72,7 @@ public class EnemyBase : RecycleObject
         HP--; //부딫힐때마다 HP감소(적끼리는 부딪치지 않는다.)
     }
 
-    protected virtual void OnReset()
+    protected override void OnReset()
     {
         HP = maxHP;
         isAlive = true;

@@ -70,6 +70,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        
         inputActions = new PlayerInputActions();    // 인풋 액션 생성
 
         animator = GetComponent<Animator>();        // 자신과 같은 게임오브젝트 안에 있는 컴포넌트 찾기        
@@ -119,6 +120,7 @@ public class Player : MonoBehaviour
 
         // transform.Translate(Time.fixedDeltaTime * moveSpeed * inputDirection);   // 한번은 파고 들어간다.
         rigid.MovePosition(rigid.position + Time.fixedDeltaTime * moveSpeed * (Vector2)inputDirection);
+    
     }
 
     /// <summary>
@@ -133,6 +135,7 @@ public class Player : MonoBehaviour
 
         //animator.SetFloat("InputY", input.y);       // 애니메이터의 "InputY" 파라메터 변경
         animator.SetFloat(InputY_String, input.y);
+        
     }
 
     /// <summary>
