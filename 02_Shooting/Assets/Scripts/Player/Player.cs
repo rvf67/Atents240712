@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     public GameObject bulletPrefab;
 
     /// <summary>
+    /// 플레이어의 총 레벨
+    /// </summary>
+    int gunLevel = 1;
+    /// <summary>
     /// 입력된 방향
     /// </summary>
     Vector3 inputDirection = Vector3.zero;
@@ -178,6 +182,10 @@ public class Player : MonoBehaviour
         Factory.Instance.GetBullet(fireTransform.position,fireTransform.rotation.eulerAngles.z);
     }
 
+    public void LevelUp()
+    {
+        gunLevel += 1;
+    }
     /// <summary>
     /// 연사용 코루틴
     /// </summary>

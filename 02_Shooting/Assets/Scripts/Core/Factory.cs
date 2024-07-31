@@ -13,6 +13,7 @@ public class Factory : Singleton<Factory>
     EnemyWavePool enemyWave;
     EnemyAsteroidBigPool enemyAsteroidBig;
     EnemyAsteroidSmallPool enemyAsteroidSmall;
+    PowerUpPool powerUp;
 
     protected override void OnInitialize()
     {
@@ -44,6 +45,9 @@ public class Factory : Singleton<Factory>
 
         enemyAsteroidSmall = GetComponentInChildren<EnemyAsteroidSmallPool>();
         if(enemyAsteroidSmall != null) enemyAsteroidSmall.Initialize();
+
+        powerUp = GetComponentInChildren<PowerUpPool>();
+        if (powerUp != null) powerUp.Initialize();
     }
 
     // 풀에서 오브젝트 가져오는 함수들 ------------------------------------------------------------------
@@ -66,6 +70,11 @@ public class Factory : Singleton<Factory>
     public Explosion GetExplosion(Vector3? position)
     {
         return explosion.GetObject(position);
+    }
+
+    public PowerUp GetPowerUp(Vector3? position)
+    {
+        return powerUp.GetObject(position);
     }
 
     public AsteroidOld GetAsteroid(Vector3? position)
