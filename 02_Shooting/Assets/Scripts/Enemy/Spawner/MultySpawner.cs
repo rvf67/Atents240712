@@ -9,7 +9,9 @@ public class MultySpawner : MonoBehaviour
     public enum SpawnType
     {
         Wave = 0,
-        Asteroid
+        Asteroid,
+        Curve,
+        Bonus
     }
 
     // 직렬화 : 특정 데이터가 메모리상에 연속적으로 붙게 하는 작업
@@ -20,6 +22,8 @@ public class MultySpawner : MonoBehaviour
     {
         public SpawnType type;
         public float interval;
+        public int countinueCount;
+        public float countinuInterval;
     }
 
     /// <summary>
@@ -61,23 +65,36 @@ public class MultySpawner : MonoBehaviour
     /// <returns></returns>
     IEnumerator SpawnCoroutine(SpawnData data)
     {
+        yield return new WaitForSeconds(data.interval);
+        float interval = data.interval - data.countinueCount * data.countinuInterval;
+
         while (true)
         {
-            yield return new WaitForSeconds(data.interval);
-
+            // Debug.Log($"연속스폰 시작 : {Time.time}");
             Vector3 spawnPosition = GetSpawnPosition();
 
-            switch (data.type)
+            for (int i = 0; i < data.countinueCount; i++)
             {
-                case SpawnType.Wave:
-                    Factory.Instance.GetEnemyWave(spawnPosition);
-                    break;
-                case SpawnType.Asteroid:
-                    EnemyAsteroidBig big = Factory.Instance.GetAsteroidBig(spawnPosition);
-                    big.SetDestination(GetDestination());
-                    break;
+                switch (data.type)
+                {
+                    case SpawnType.Wave:
+                        Factory.Instance.GetEnemyWave(spawnPosition);
+                        break;
+                    case SpawnType.Asteroid:
+                        EnemyAsteroidBig big = Factory.Instance.GetAsteroidBig(spawnPosition);
+                        big.SetDestination(GetDestination());
+                        break;
+                    case SpawnType.Curve:
+                        Factory.Instance.GetEnemyCurve(spawnPosition);
+                        break;
+                    case SpawnType.Bonus:
+                        Factory.Instance.GetEnemyBonus(spawnPosition);
+                        break;
+                }
+                yield return new WaitForSeconds(data.countinuInterval);
             }
 
+            yield return new WaitForSeconds(interval);
         }
     }
 

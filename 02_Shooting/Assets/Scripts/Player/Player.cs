@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -83,6 +84,24 @@ public class Player : MonoBehaviour
     /// </summary>
     int power = 1;
 
+    /// <summary>
+    /// 현재 생명
+    /// </summary>
+    int life = 3;
+
+    /// <summary>
+    /// 초기 생명
+    /// </summary>
+    const int StartLife = 3;
+
+    /// <summary>
+    /// 리지드바디 컴포넌트
+    /// </summary>
+    Rigidbody2D rigid;
+
+    /// <summary>
+    /// Power 확인 및 설정용 프로퍼티
+    /// </summary>
     int Power
     {
         get => power;
@@ -92,11 +111,11 @@ public class Player : MonoBehaviour
             {
                 power = value;
 
-                if( power > MaxPower)
+                if (power > MaxPower)
                 {
                     // MaxPower보다 커졌으면 보너스 점수 얻기
                     ScoreText scoreText = GameManager.Instance.ScoreText;
-                    scoreText.AddScore(PowerUp.BonusPoint);
+                    scoreText?.AddScore(PowerUp.BonusPoint);
                 }
 
                 // power는 MinPower ~ MaxPower 범위
@@ -108,10 +127,42 @@ public class Player : MonoBehaviour
         }
     }
 
+    int Life
+    {
+        get => life;
+        set
+        {
+            if (life != value)
+            {
+                life = value;
+                if (IsAlive)
+                {
+                    // 아직 살아있음
+                    OnHit();
+                }
+                else
+                {
+                    // 죽었음
+                    OnDie();
+                }
+                life = Mathf.Clamp(life, 0, StartLife);
+
+                Debug.Log($"남은 수명 : {life}");
+                onLifeChange?.Invoke(life); // 생명이 변화했음을 알림
+            }
+        }
+    }
+
     /// <summary>
-    /// 리지드바디 컴포넌트
+    /// 살아있는지 죽었는지 확인하기 위한 프로퍼티
     /// </summary>
-    Rigidbody2D rigid;
+    bool IsAlive => life > 0;
+
+    /// <summary>
+    /// 생명 변화를 알리는 델리게이트
+    /// </summary>
+    public Action<int> onLifeChange;
+
 
     private void Awake()
     {
@@ -131,6 +182,12 @@ public class Player : MonoBehaviour
         fireCoroutine = FireCoroutine();            // 코루틴 저장하기
 
         flashWait = new WaitForSeconds(0.1f);       // 총알 발사용 이팩트는 0.1초 동안만 보인다.
+    }
+
+    private void Start()
+    {
+        Power = 1;
+        Life = StartLife;   // 생명 초기화(UI와 연계가 있어서 Start에서 실행)
     }
 
     private void OnEnable()
@@ -176,6 +233,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))  // 이쪽을 권장. ==에 비해 가비지가 덜 생성된다. 생성되는 코드도 훨씬 빠르게 구현되어 있음.
         {
             Debug.Log("적과 부딪쳤다.");
+            Life--;
         }
         //else if (collision.gameObject.CompareTag("PowerUp"))
         //{
@@ -258,7 +316,7 @@ public class Player : MonoBehaviour
         while (true) // 무한 루프
         {
             //Debug.Log("Fire");
-            for(int i=0;i<Power;i++)
+            for (int i = 0; i < Power; i++)
             {
                 Fire(fireTransform[i]);
             }
@@ -281,11 +339,20 @@ public class Player : MonoBehaviour
         fireFlash.SetActive(false);
     }
 
+    IEnumerator Undie()
+    {
+        gameObject.layer = LayerMask.NameToLayer("UnDie");
+        
+        yield return new WaitForSeconds(2);
+        gameObject.layer = LayerMask.NameToLayer("Player");
+
+    }
+
     private void RefreshFireAngles()
     {
-        for(int i=0;i<MaxPower; i++)
+        for (int i = 0; i < MaxPower; i++)
         {
-            if( i < Power )
+            if (i < Power)
             {
                 // fireAngle이 30도 일 때
                 // 1 : 0도
@@ -311,4 +378,30 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 플레이어가 공격을 당했을 때 실행되는 함수
+    /// </summary>
+    private void OnHit()
+    {
+        Power--;
+
+        // 일정 시간 무적이 되기
+        // 1. 적과 안 부딪친다.
+        // 2. 보더와는 부딪친다.
+        // 3. 무적 기간동안 깜박거린다.(코드로 진행)
+        StartCoroutine(Undie());
+        // 예시) 레이어번호 찾고 적용하기 
+        //gameObject.layer = LayerMask.NameToLayer("Undie");
+        //gameObject.layer = LayerMask.NameToLayer("Player");
+    }
+
+    /// <summary>
+    /// 플레이어가 죽었을 때 실행되는 함수
+    /// </summary>
+    private void OnDie()
+    {
+
+    }
+
 }
