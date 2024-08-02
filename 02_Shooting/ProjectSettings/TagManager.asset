@@ -16,9 +16,9 @@ TagManager:
   - Water
   - UI
   - Player
-  - Enmey
-  - PlayerBullet
+  - Enemy
   - Border
+  - PlayerBullet
   - Killzone
   - Item
   - 
@@ -46,20 +46,20 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
-    uniqueID: 1032654271
+    uniqueID: 2200976313
     locked: 0
   - name: Enemy
-    uniqueID: 582568465
+    uniqueID: 3618512051
     locked: 0
   - name: Item
-    uniqueID: 3370062581
+    uniqueID: 911574725
     locked: 0
   - name: Player
-    uniqueID: 3759079447
-    locked: 0
-  - name: Effect
-    uniqueID: 284023213
+    uniqueID: 3992633415
     locked: 0
   - name: Bullet
-    uniqueID: 2803173229
+    uniqueID: 2588961825
+    locked: 0
+  - name: Effect
+    uniqueID: 2662080373
     locked: 0
