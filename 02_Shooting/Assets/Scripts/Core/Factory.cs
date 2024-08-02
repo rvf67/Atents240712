@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Factory : Singleton<Factory>
 {
@@ -14,6 +15,7 @@ public class Factory : Singleton<Factory>
     EnemyAsteroidBigPool enemyAsteroidBig;
     EnemyAsteroidSmallPool enemyAsteroidSmall;
     PowerUpPool powerUp;
+    EnemyCurvePool enemyCurve;
 
     protected override void OnInitialize()
     {
@@ -48,6 +50,9 @@ public class Factory : Singleton<Factory>
 
         powerUp = GetComponentInChildren<PowerUpPool>();
         if (powerUp != null) powerUp.Initialize();
+
+        enemyCurve = GetComponentInChildren<EnemyCurvePool>();
+        if(enemyCurve != null) enemyCurve.Initialize();
     }
 
     // 풀에서 오브젝트 가져오는 함수들 ------------------------------------------------------------------
@@ -125,5 +130,10 @@ public class Factory : Singleton<Factory>
         small.Direction = direction ?? Vector3.left;
 
         return small;
+    }
+
+    public EnemyCurve GetEnemyCurve(Vector3? position)
+    {
+        return enemyCurve.GetObject(position);
     }
 }

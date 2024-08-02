@@ -1,18 +1,14 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Test16_PowerUp : MonoBehaviour
+public class Test16_PowerUp : TestBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public Transform target;
+    protected override void OnTest1(InputAction.CallbackContext context)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Factory.Instance.GetPowerUp(target.position);
     }
 }

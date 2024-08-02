@@ -11,7 +11,7 @@ public class EnemyObjectPool<T> : ObjectPool<T> where T : EnemyBase
 
     public override void Initialize()
     {
-        scoreText = FindAnyObjectByType<ScoreText>();   // 풀이 초기화 될 때 점수 표시용 UI 찾기
+        scoreText = GameManager.Instance.ScoreText;   // 풀이 초기화 될 때 점수 표시용 UI 찾기
 
         base.Initialize();  // 이 안에서 생성됨
     }

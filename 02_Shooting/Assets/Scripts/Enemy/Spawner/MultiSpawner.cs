@@ -9,7 +9,8 @@ public class MultiSpawner : MonoBehaviour
     public enum SpawnType
     {
         Wave=0,
-        Asteroid
+        Asteroid,
+        Curve
     }
 
     //직렬화 : 특정 데이터가 메모리상에 연속적으로 붙게 하는 작업
@@ -60,6 +61,13 @@ public class MultiSpawner : MonoBehaviour
                 case SpawnType.Asteroid:
                     EnemyAsteroidBig big= Factory.Instance.GetAsteroidBig(spawnPosition);
                     big.SetDestination(GetDestination());
+                    break;
+                case SpawnType.Curve:
+                    if(spawnPosition.y < (MinY + MaxY) / 2)
+                    {
+
+                    }
+                    Factory.Instance.GetEnemyCurve(spawnPosition);
                     break;
             }
         }

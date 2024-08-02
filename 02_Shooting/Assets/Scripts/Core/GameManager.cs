@@ -6,19 +6,37 @@ public class GameManager : Singleton<GameManager>
 {
     Player player;
 
+    /// <summary>
+    /// 점수 표시용 UI
+    /// </summary>
+    ScoreText scoreTextUI;
     public Player Player
     {
         get
         {
             if (player == null)
             {
-                OnInitialize(); //oninitialize전에 호풍괴면 일단 초기화먼저 처리
+                player = FindAnyObjectByType<Player>();
             }
             return player;
+        }
+    }
+
+    public ScoreText ScoreText
+    {
+        get
+        {
+            if (scoreTextUI == null)
+            {
+                scoreTextUI = FindAnyObjectByType<ScoreText>();
+            }
+            return scoreTextUI;
         }
     }
     protected override void OnInitialize()
     {
         player = FindAnyObjectByType<Player>();
+
+        scoreTextUI = FindAnyObjectByType<ScoreText>();
     }
 }

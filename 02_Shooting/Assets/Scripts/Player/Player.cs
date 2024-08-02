@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,9 +25,46 @@ public class Player : MonoBehaviour
     public GameObject bulletPrefab;
 
     /// <summary>
-    /// 플레이어의 총 레벨
+    /// 총알 간의 사이각
     /// </summary>
-    int gunLevel = 1;
+    public float FireAngle = 30.0f;
+
+    /// <summary>
+    /// 플레이어의 파워의 최대,최소 레벨
+    /// </summary>
+    private const int MinPower = 1;
+    private const int MaxPower = 3;
+    /// <summary>
+    /// 현재 파워 레벨
+    /// </summary>
+    int power = 1;
+
+    
+    int Power
+    {
+        get => power;
+        set
+        {
+            //변경이 있을 때만 처리
+            if (power != value)
+            {
+                power = value;
+                //MaxPower보다 커졌으면 보너스 점수 얻기 //int bonus =PowerUp.BonusPoint;
+                if(power > MaxPower)
+                {
+                    while(power > MaxPower)
+                    {
+                        power -= 1;
+                    }
+                    ScoreText scoreText = GameManager.Instance.ScoreText;
+                    scoreText.AddScore(PowerUp.BonusPoint);
+                }
+            } 
+            // power는 MinPower~MaxPower 범위
+            //발사각도 변경
+        }
+    }
+
     /// <summary>
     /// 입력된 방향
     /// </summary>
@@ -50,7 +88,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 총알 발사용 트랜스폼
     /// </summary>
-    Transform fireTransform;
+    Transform[] fireTransform;
 
     /// <summary>
     /// 총알 발사용 코루틴
@@ -68,19 +106,28 @@ public class Player : MonoBehaviour
     WaitForSeconds flashWait;
 
     /// <summary>
+    /// 점수표시용 UI
+    /// </summary>
+    ScoreText scoreText;
+    /// <summary>
     /// 리지드바디 컴포넌트
     /// </summary>
     Rigidbody2D rigid;
 
     private void Awake()
     {
-        
+        scoreText = FindAnyObjectByType<ScoreText>();
         inputActions = new PlayerInputActions();    // 인풋 액션 생성
 
         animator = GetComponent<Animator>();        // 자신과 같은 게임오브젝트 안에 있는 컴포넌트 찾기        
         rigid = GetComponent<Rigidbody2D>();
 
-        fireTransform = transform.GetChild(0);          // 첫번째 자식 찾기
+        Transform fireRoot =transform.GetChild(0);  // 첫번째 자식 찾기
+        fireTransform= new Transform[fireRoot.childCount];
+        for (int i = 0; i < fireTransform.Length; i++)
+        {
+            fireTransform[i] = fireRoot.GetChild(i);    // 발사 위치 전부 찾기
+        }
         fireFlash = transform.GetChild(1).gameObject;   // 두번째 자식 찾아서 그 자식의 게임 오브젝트 저장하기
 
         fireCoroutine = FireCoroutine();            // 코루틴 저장하기
@@ -127,6 +174,26 @@ public class Player : MonoBehaviour
     
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))  // 이쪽을 권장. ==에 비해 가비지가 덜 생성된다. 생성되는 코드도 훨씬 빠르게 구현되어 있음.
+        {
+            Debug.Log("적과 부딪쳤다.");
+        }
+        //else if (collision.gameObject.CompareTag("PowerUp"))
+        //{
+        //    Power++;
+        //    collision.gameObject.SetActive(false);
+        //}
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("PowerUp"))
+        {
+            Power++;
+            collision.gameObject.SetActive(false);
+        }
+    }
     /// <summary>
     /// Move 액션이 발생했을 때 실행될 함수
     /// </summary>
@@ -167,7 +234,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 총알을 한발 발사하는 함수
     /// </summary>
-    void Fire()
+    void Fire(Transform fire)
     {
         // 플래시 이팩트 잠깐 켜기
         StartCoroutine(FlashEffect());
@@ -179,13 +246,9 @@ public class Player : MonoBehaviour
         //Instantiate(bulletPrefab, fireTransform.position, fireTransform.rotation);  // 총알을 fireTransform의 위치와 회전에 따라 생성
 
         //팩토리 활용 총알 생성
-        Factory.Instance.GetBullet(fireTransform.position,fireTransform.rotation.eulerAngles.z);
+        Factory.Instance.GetBullet(fire.position,fire.rotation.eulerAngles.z);
     }
 
-    public void LevelUp()
-    {
-        gunLevel += 1;
-    }
     /// <summary>
     /// 연사용 코루틴
     /// </summary>
@@ -197,7 +260,10 @@ public class Player : MonoBehaviour
         while (true) // 무한 루프
         {
             //Debug.Log("Fire");
-            Fire();
+            for(int i = 0; i < Power; i++)
+            {
+                Fire(fireTransform[i]);
+            }
             yield return new WaitForSeconds(fireInterval);  // fireInterval초만큼 기다렸다가 다시 시작하기
         }
 
@@ -217,11 +283,29 @@ public class Player : MonoBehaviour
         fireFlash.SetActive(false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void RefreshFireAngles()
     {
-        if( collision.gameObject.CompareTag("Enemy") )  // 이쪽을 권장. ==에 비해 가비지가 덜 생성된다. 생성되는 코드도 훨씬 빠르게 구현되어 있음.
+        for(int i = 0; i < MaxPower; i++)
         {
-            Debug.Log("적과 부딪쳤다.");
+            if (i < Power)
+            {
+                //회전 결정
+                float startAngle = (Power - 1) * (FireAngle * 0.5f);
+                float angleDelta = i * -FireAngle;
+                fireTransform[i].rotation =Quaternion.Euler(0,0,startAngle+angleDelta);
+
+                //약간 앞으로 옮기기
+                fireTransform[i].localPosition=Vector3.zero;
+                fireTransform[i].Translate(0.5f, 0, 0);
+
+                //보일부분
+                fireTransform[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                //안보일부분
+                fireTransform[i].gameObject.SetActive(false) ;
+            }
         }
     }
 }

@@ -35,6 +35,10 @@ public class PowerUp : RecycleObject
     public float fleeChange = 0.7f;
 
     /// <summary>
+    /// 아이템을 먹었을 때 최고단계의 레벨이라면 보너스점수를 받음
+    /// </summary>
+    public const int BonusPoint = 1000;
+    /// <summary>
     /// 현재 방향 남은 회수
     /// </summary>
     int directionChangeCount = 0;
@@ -95,7 +99,6 @@ public class PowerUp : RecycleObject
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.Player.LevelUp();
             gameObject.SetActive(false);
         }
     }
