@@ -30,6 +30,11 @@ public class Player : MonoBehaviour
     public float fireAngle = 30.0f;
 
     /// <summary>
+    /// 플레이어 충돌시 무적 시간
+    /// </summary>
+    public float undieTime = 2;
+
+    /// <summary>
     /// 입력된 방향
     /// </summary>
     Vector3 inputDirection = Vector3.zero;
@@ -95,9 +100,21 @@ public class Player : MonoBehaviour
     const int StartLife = 3;
 
     /// <summary>
+    /// 무적 레이어의 번호
+    /// </summary>
+    int undieLayer;
+    
+    /// <summary>
+    /// 플레이어 레이어의 번호
+    /// </summary>
+    int playerLayer;
+
+    /// <summary>
     /// 리지드바디 컴포넌트
     /// </summary>
     Rigidbody2D rigid;
+
+    SpriteRenderer spriteRenderer;
 
     /// <summary>
     /// Power 확인 및 설정용 프로퍼티
@@ -182,12 +199,16 @@ public class Player : MonoBehaviour
         fireCoroutine = FireCoroutine();            // 코루틴 저장하기
 
         flashWait = new WaitForSeconds(0.1f);       // 총알 발사용 이팩트는 0.1초 동안만 보인다.
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
         Power = 1;
         Life = StartLife;   // 생명 초기화(UI와 연계가 있어서 Start에서 실행)
+        undieLayer = LayerMask.NameToLayer("UnDie");
+        playerLayer = LayerMask.NameToLayer("Player");
     }
 
     private void OnEnable()
@@ -341,11 +362,27 @@ public class Player : MonoBehaviour
 
     IEnumerator Undie()
     {
-        gameObject.layer = LayerMask.NameToLayer("UnDie");
-        
-        yield return new WaitForSeconds(2);
-        gameObject.layer = LayerMask.NameToLayer("Player");
+        gameObject.layer = undieLayer; //무적 레이어로 변경
+        float timeElapsed = 0.0f;
+        while (timeElapsed < undieTime) //undieTime초 동안 반복
+        {
+            timeElapsed += Time.deltaTime;
 
+            //플레이어 깜빡이기
+
+            //(Mathf.Cos(timeElapsed)+1.0f)*0.5f;
+
+            //Mathf.Deg2Rad; //곱하면 Degree가 Radian이 됨
+            //Mathf.Rad2Deg; //곱하면 Radian이 Degree가 됨
+
+            //30.0f는 깜빡이는 속도 증폭율
+            float alpha =(Mathf.Cos(timeElapsed * 30.0f)+1.0f) * 0.5f;
+            spriteRenderer.color = new Color(1,1,1,alpha);
+            
+            yield return null; //다음 프레임까지 대기
+        }
+        gameObject.layer = playerLayer; //플레이어로 레이어 복구
+        spriteRenderer.color = Color.white;
     }
 
     private void RefreshFireAngles()
