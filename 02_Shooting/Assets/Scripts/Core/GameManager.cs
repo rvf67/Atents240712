@@ -15,6 +15,10 @@ public class GameManager : Singleton<GameManager>
     ScoreText scoreTextUI;
 
     /// <summary>
+    /// 생명표시용 UI
+    /// </summary>
+    LifePanel lifePanelUI;
+    /// <summary>
     /// 씬에 있는 플레이어에 접근하기 위한 프로퍼티(읽기전용)
     /// </summary>
     public Player Player
@@ -46,5 +50,12 @@ public class GameManager : Singleton<GameManager>
         player = FindAnyObjectByType<Player>();
 
         scoreTextUI = FindAnyObjectByType<ScoreText>();
+
+        lifePanelUI = FindAnyObjectByType<LifePanel>();
+        if(lifePanelUI != null)
+        {
+            lifePanelUI.OnInitialize();     // 플레이어를 찾은 이후에 실행되어야 함
+        }
+           
     }
 }

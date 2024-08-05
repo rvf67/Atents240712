@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
@@ -246,7 +247,10 @@ public class Player : MonoBehaviour
         // Debug.Log(Time.fixedDeltaTime);
 
         // transform.Translate(Time.fixedDeltaTime * moveSpeed * inputDirection);   // 한번은 파고 들어간다.
-        rigid.MovePosition(rigid.position + Time.fixedDeltaTime * moveSpeed * (Vector2)inputDirection);
+        if (IsAlive)
+        {
+            rigid.MovePosition(rigid.position + Time.fixedDeltaTime * moveSpeed * (Vector2)inputDirection);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -438,7 +442,37 @@ public class Player : MonoBehaviour
     /// </summary>
     private void OnDie()
     {
+        Debug.Log("Die");
 
+        Factory.Instance.GetExplosion(transform.position);
+        
+        //더이상 충돌이 일어나지 않도록 비활성화
+        Collider2D body = GetComponent<Collider2D>();
+        body.enabled =false;
+        inputActions.Player.Disable();
+        rigid.gravityScale = 1.0f;      //중력 적용하기
+        rigid.freezeRotation = false;   //회전 막은거 풀기
+        rigid.AddTorque(30, ForceMode2D.Impulse);   //회전력 추가
+        rigid.AddForce(new Vector2(-2,1)*10,ForceMode2D.Impulse);  //왼쪽 대각선 위로 날리기
+        //터지는 이펙트
+        //입력 정지
+        //튕겨나오는 듯한 연출 추가(빙글빙글 돌면서 뒤로 날아간다.)
+        
     }
 
+
+    public void TestLifeUp()
+    {
+        Life++;
+    }
+
+    public void TestLifeDown()
+    {
+        Life--;
+    }
+
+    public void TestDie()
+    {
+        Life = 0;
+    }
 }
