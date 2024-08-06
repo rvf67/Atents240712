@@ -15,6 +15,11 @@ public class GameManager : Singleton<GameManager>
     ScoreText scoreTextUI;
 
     /// <summary>
+    /// 게임 오버 표시,랭킹 표시, 재시작버튼 용 패널
+    /// </summary>
+    GameOverPanel gameOverPanelUI;
+
+    /// <summary>
     /// 생명표시용 UI
     /// </summary>
     LifePanel lifePanelUI;
@@ -56,6 +61,11 @@ public class GameManager : Singleton<GameManager>
         {
             lifePanelUI.OnInitialize();     // 플레이어를 찾은 이후에 실행되어야 함
         }
-           
+
+        gameOverPanelUI= FindAnyObjectByType<GameOverPanel>();
+        if(gameOverPanelUI != null)
+        {
+            gameOverPanelUI.OnInitialize();
+        }
     }
 }

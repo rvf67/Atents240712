@@ -181,6 +181,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public Action<int> onLifeChange;
 
+    public Action onDie;
 
     private void Awake()
     {
@@ -457,7 +458,7 @@ public class Player : MonoBehaviour
         //터지는 이펙트
         //입력 정지
         //튕겨나오는 듯한 연출 추가(빙글빙글 돌면서 뒤로 날아간다.)
-        
+        onDie?.Invoke();
     }
 
 
