@@ -46,5 +46,21 @@ public class Test19_GameOver : TestBase
         RankPanel panel = FindFirstObjectByType<RankPanel>();
         panel.Test_UpdateRankPanel(score);
     }
+    public void Test_OnValueChange()
+    {
+        Debug.Log("Test_OnValueChange");
+    }
+    public void Test_OnEditEnd()
+    {
+        Debug.Log("Test_OnEditEnd");
+    }
+    public void Test_OnSelect()
+    {
+        Debug.Log("Test_OnSelect");
+    }
+    public void Test_OnDeslect()
+    {
+        Debug.Log("Test_OnDeselect");
+    }
 #endif
 }

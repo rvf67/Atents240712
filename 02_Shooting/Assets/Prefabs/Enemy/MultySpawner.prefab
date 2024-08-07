@@ -48,8 +48,20 @@ MonoBehaviour:
   spawnDatas:
   - type: 0
     interval: 2
+    countinueCount: 1
+    countinuInterval: 0
   - type: 1
     interval: 5
+    countinueCount: 1
+    countinuInterval: 0
+  - type: 2
+    interval: 3
+    countinueCount: 3
+    countinuInterval: 0.2
+  - type: 3
+    interval: 10
+    countinueCount: 1
+    countinuInterval: 0
 --- !u!1 &5290035862705735276
 GameObject:
   m_ObjectHideFlags: 0
