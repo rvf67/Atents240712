@@ -51,6 +51,7 @@ public class Bullet : RecycleObject
         // 충돌이 시작되었을 때 실행
         //Debug.Log("충돌 시작");
         //Instantiate(hitEffect, transform.position, Quaternion.identity);
+        
         Factory.Instance.GetHitEffect(transform.position);
 
         //Destroy(gameObject);    // 자기자신 제거하기

@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 6518195934238119928}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
   fireInterval: 0.3
   bulletPrefab: {fileID: 430430622879572730, guid: 1285fb6f5b46f63449bdbf34face6cfa, type: 3}
   fireAngle: 30
+  undieTime: 2
 --- !u!50 &3482822400223831548
 Rigidbody2D:
   serializedVersion: 4
