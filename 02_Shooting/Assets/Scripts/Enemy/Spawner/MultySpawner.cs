@@ -11,7 +11,8 @@ public class MultySpawner : MonoBehaviour
         Wave = 0,
         Asteroid,
         Curve,
-        Bonus
+        Bonus,
+        Boss
     }
 
     // 직렬화 : 특정 데이터가 메모리상에 연속적으로 붙게 하는 작업
@@ -89,6 +90,9 @@ public class MultySpawner : MonoBehaviour
                         break;
                     case SpawnType.Bonus:
                         Factory.Instance.GetEnemyBonus(spawnPosition);
+                        break;
+                    case SpawnType.Boss:
+                        Factory.Instance.GetEnemyBoss(transform.position); //보스는 항상 중심에서 등장
                         break;
                 }
                 yield return new WaitForSeconds(data.countinuInterval);

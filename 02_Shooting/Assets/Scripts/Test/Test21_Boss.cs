@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class Test21_Boss : TestBase
 {
     public Transform target;
-    public EnemyBoss bossPrefab;
     protected override void OnTest1(InputAction.CallbackContext context)
     {
         Factory.Instance.GetBossBullet(target.position);

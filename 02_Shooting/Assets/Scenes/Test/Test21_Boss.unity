@@ -597,7 +597,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: -1
   target: {fileID: 515251733}
-  bossPrefab: {fileID: 0}
 --- !u!1 &1592209105
 GameObject:
   m_ObjectHideFlags: 0

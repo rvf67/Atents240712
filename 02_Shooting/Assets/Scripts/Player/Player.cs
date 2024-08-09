@@ -109,7 +109,10 @@ public class Player : MonoBehaviour
     /// 플레이어 레이어의 번호
     /// </summary>
     int playerLayer;
-
+    /// <summary>
+    /// 중복 충돌 방지 코드
+    /// </summary>
+    bool isHit =false;
     /// <summary>
     /// 리지드바디 컴포넌트
     /// </summary>
@@ -165,7 +168,7 @@ public class Player : MonoBehaviour
                 }
                 life = Mathf.Clamp(life, 0, StartLife);
 
-                Debug.Log($"남은 수명 : {life}");
+                //Debug.Log($"남은 수명 : {life}");
                 onLifeChange?.Invoke(life); // 생명이 변화했음을 알림
             }
         }
@@ -256,9 +259,11 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))  // 이쪽을 권장. ==에 비해 가비지가 덜 생성된다. 생성되는 코드도 훨씬 빠르게 구현되어 있음.
+        //아직 맞지 않았고, 적과 부딪혔을 때 
+        if (!isHit && collision.gameObject.CompareTag("Enemy"))  // 이쪽을 권장. ==에 비해 가비지가 덜 생성된다. 생성되는 코드도 훨씬 빠르게 구현되어 있음.
         {
-            Debug.Log("적과 부딪쳤다.");
+            //Debug.Log("적과 부딪쳤다.");
+            isHit = true;
             Life--;
         }
         //else if (collision.gameObject.CompareTag("PowerUp"))
@@ -368,6 +373,7 @@ public class Player : MonoBehaviour
     IEnumerator Undie()
     {
         gameObject.layer = undieLayer; //무적 레이어로 변경
+
         float timeElapsed = 0.0f;
         while (timeElapsed < undieTime) //undieTime초 동안 반복
         {
@@ -386,6 +392,8 @@ public class Player : MonoBehaviour
             
             yield return null; //다음 프레임까지 대기
         }
+
+        isHit = false;                  //명중 여부 리셋
         gameObject.layer = playerLayer; //플레이어로 레이어 복구
         spriteRenderer.color = Color.white;
     }

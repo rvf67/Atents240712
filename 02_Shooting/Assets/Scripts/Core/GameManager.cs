@@ -61,22 +61,14 @@ public class GameManager : Singleton<GameManager>
         player = FindAnyObjectByType<Player>();
 
         scoreTextUI = FindAnyObjectByType<ScoreText>();
-        if (scoreTextUI != null)
-        {
-            scoreTextUI.OnInitialize();
-        }
-
+        scoreTextUI?.OnInitialize();
+        
         lifePanelUI = FindAnyObjectByType<LifePanel>();
-        if (lifePanelUI != null)
-        {
-            lifePanelUI.OnInitialize();     // 플레이어를 찾은 이후에 실행되어야 함
-        }
-
+        lifePanelUI?.OnInitialize();     // 플레이어를 찾은 이후에 실행되어야 함
+        
         gameOverPanelUI = FindAnyObjectByType<GameOverPanel>();
-        if (gameOverPanelUI != null)
-        {
-            gameOverPanelUI.OnInitialize(); // 플레이어를 찾은 이후에 실행되어야 함
-        }
+        gameOverPanelUI?.OnInitialize(); // 플레이어를 찾은 이후에 실행되어야 함
+        
     }
 
     /// <summary>
@@ -85,6 +77,6 @@ public class GameManager : Singleton<GameManager>
     /// <param name="score">추가되는 점수</param>
     public void AddScore(int score)
     {
-        ScoreText.AddScore(score);
+        ScoreText?.AddScore(score);
     }
 }
