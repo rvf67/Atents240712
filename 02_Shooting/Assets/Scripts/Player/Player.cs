@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -33,7 +34,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 플레이어 충돌시 무적 시간
     /// </summary>
-    public float undieTime = 2;
+    public float undieTime = 4.0f;
 
     /// <summary>
     /// 입력된 방향
@@ -192,7 +193,6 @@ public class Player : MonoBehaviour
 
         animator = GetComponent<Animator>();        // 자신과 같은 게임오브젝트 안에 있는 컴포넌트 찾기        
         rigid = GetComponent<Rigidbody2D>();
-
         Transform fireRoot = transform.GetChild(0);     // 첫번째 자식 찾기
         fireTransform = new Transform[fireRoot.childCount];
         for (int i = 0; i < fireTransform.Length; i++)
@@ -291,7 +291,7 @@ public class Player : MonoBehaviour
         Vector2 input = context.ReadValue<Vector2>();   // 입력 값 읽기
         //transform.position += (Vector3)input;           // 입력 값에 따라 이동
         inputDirection = (Vector3)input;
-
+        
         //animator.SetFloat("InputY", input.y);       // 애니메이터의 "InputY" 파라메터 변경
         animator.SetFloat(InputY_String, input.y);
     }
