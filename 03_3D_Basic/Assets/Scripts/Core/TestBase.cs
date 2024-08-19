@@ -16,7 +16,7 @@ public class TestBase : MonoBehaviour
     // 테스트용 인풋액션을 저장할 맴버 변수
     TestInputActions inputActions;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         inputActions = new TestInputActions();          // TestInputActions을 새로 생성
 
@@ -26,7 +26,7 @@ public class TestBase : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         inputActions.Test.Enable();                     // Test액션맵 활성화하기
         inputActions.Test.Test1.performed += OnTest1;   // 액션과 함수 바인딩
@@ -40,7 +40,7 @@ public class TestBase : MonoBehaviour
         inputActions.Test.TestWASD.canceled += OnTestWASD;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         inputActions.Test.TestWASD.canceled -= OnTestWASD;
         inputActions.Test.TestWASD.performed -= OnTestWASD;

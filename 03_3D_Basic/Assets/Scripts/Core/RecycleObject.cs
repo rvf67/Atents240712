@@ -16,9 +16,6 @@ public class RecycleObject : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        transform.localPosition = Vector3.zero;         // 위치와 회전 초기화
-        transform.localRotation = Quaternion.identity;
-
         StopAllCoroutines();    // 이전에 실행 중이던 코루틴 모두 정지
 
         OnReset();              // 각 클래스별 리셋 처리
@@ -33,7 +30,7 @@ public class RecycleObject : MonoBehaviour
     /// 재활용 될 때 초기화 시키는 함수(빈함수)
     /// </summary>
     protected virtual void OnReset()
-    { 
+    {
     }
 
     /// <summary>
