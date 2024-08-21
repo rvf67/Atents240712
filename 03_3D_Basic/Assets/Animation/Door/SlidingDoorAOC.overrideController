@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SlidingDoorAOC
+  m_Controller: {fileID: 9100000, guid: cc6269d18c16f6e4699c698dba2e677f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 60c9e52a2bcf1ea41959d22bdb35f916, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bcf2266c14d1f464685353cfcbf75ade, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 32db313a3f76f39479b8a66074a6aefc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f8fe6397ed7a28c438b851f53bec15ea, type: 2}

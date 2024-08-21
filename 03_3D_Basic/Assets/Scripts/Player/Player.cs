@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
 
     // 애니메이터용 해시
     readonly int IsMove_Hash = Animator.StringToHash("IsMove");
+    readonly int IsUse_Hash = Animator.StringToHash("Use");
 
     private void Awake()
     {
@@ -99,6 +100,9 @@ public class Player : MonoBehaviour
             isGrounded = isGround;      // GroundSensor에서 신호가 오면 변수 저장
             //Debug.Log(isGrounded);
         };
+
+        UseSensor useSensor = GetComponentInChildren<UseSensor>();  
+        useSensor.onUse += (usable) => usable.Use();    // 사용 시도 신호가 들어오면 사용한다.
     }
 
     private void OnEnable()
@@ -107,10 +111,12 @@ public class Player : MonoBehaviour
         inputActions.Player.Move.performed += OnMoveInput;
         inputActions.Player.Move.canceled += OnMoveInput;
         inputActions.Player.Jump.performed += OnJumpInput;
+        inputActions.Player.Use.performed += OnUseInput;
     }
 
     private void OnDisable()
     {
+        inputActions.Player.Use.performed -= OnUseInput;
         inputActions.Player.Jump.performed -= OnJumpInput;
         inputActions.Player.Move.canceled -= OnMoveInput;
         inputActions.Player.Move.performed -= OnMoveInput;
@@ -125,6 +131,11 @@ public class Player : MonoBehaviour
     private void OnJumpInput(InputAction.CallbackContext _)
     {
         Jump();
+    }
+
+    private void OnUseInput(InputAction.CallbackContext context)
+    {
+        Use();
     }
 
     private void Update()
@@ -187,5 +198,13 @@ public class Player : MonoBehaviour
             rigid.AddForce(jumpPower * Vector3.up, ForceMode.Impulse);  // 위로 점프
             JumpCoolRemains = jumpCoolTime;                             // 쿨타임 초기화
         }
+    }
+
+    /// <summary>
+    /// 상호작용 관련 처리용 함수
+    /// </summary>
+    void Use()
+    {
+        animator.SetTrigger(IsUse_Hash);    // 애니메이션으로 사용 처리 
     }
 }
