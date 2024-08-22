@@ -292,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7904585692852048977, guid: 806f7a60d4850a146b36625f5c2a92f3, type: 3}
       propertyPath: m_VersionIndex
-      value: 1422
+      value: 1425
       objectReference: {fileID: 0}
     - target: {fileID: 7904585692852048977, guid: 806f7a60d4850a146b36625f5c2a92f3, type: 3}
       propertyPath: m_Positions.Array.data[0].x

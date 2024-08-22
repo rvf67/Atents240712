@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class BossMissile : EnemyBase
 {
-    //HP´Â 1ÀÌ°í ÅÍÆ®·ÈÀ» ¶§ Á¡¼ö´Â 0Á¡
+    //HPëŠ” 1ì´ê³  í„°íŠ¸ë ¸ì„ ë•Œ ì ìˆ˜ëŠ” 0ì 
 
-    //»ı¼ºµÇÀÚ¸¶ÀÚ ÇÃ·¹ÀÌ¾î¸¦ ÃßÃ´ÇÔ(ÇÃ·¹ÀÌ¾î ¹æÇâÀ¸·Î ÀÌµ¿)
-    //ÀÚ½ÅÀÇ Æ®¸®°Å ¾È¿¡ ÇÃ·¹ÀÌ¾î°¡ µé¾î¿À¸é ±× ÈÄ·Î ÃßÀû ÁßÁö
-    //ÃßÀû Á¤µµ¸¦ ¼³Á¤ÇÒ ¼ö ÀÖ´Â º¯¼ö ¸¸µé±â
+    //ìƒì„±ë˜ìë§ˆì í”Œë ˆì´ì–´ë¥¼ ì¶”ì²™í•¨(í”Œë ˆì´ì–´ ë°©í–¥ìœ¼ë¡œ ì´ë™)
+    //ìì‹ ì˜ íŠ¸ë¦¬ê±° ì•ˆì— í”Œë ˆì´ì–´ê°€ ë“¤ì–´ì˜¤ë©´ ê·¸ í›„ë¡œ ì¶”ì  ì¤‘ì§€
+    //ì¶”ì  ì •ë„ë¥¼ ì„¤ì •í•  ìˆ˜ ìˆëŠ” ë³€ìˆ˜ ë§Œë“¤ê¸°
 
-    [Header("ÃßÀû ¹Ì»çÀÏ µ¥ÀÌÅÍ")]
+    [Header("ì¶”ì  ë¯¸ì‚¬ì¼ ë°ì´í„°")]
     /// <summary>
-    /// ¹Ì»çÀÏÀÇ À¯µµ ¼º´É. ³ôÀ» ¼ö·Ï ºü¸£°Ô target¹æÇâÀ¸·Î È¸Àü
+    /// ë¯¸ì‚¬ì¼ì˜ ìœ ë„ ì„±ëŠ¥. ë†’ì„ ìˆ˜ë¡ ë¹ ë¥´ê²Œ targetë°©í–¥ìœ¼ë¡œ íšŒì „
     /// </summary>
     public float guidedPerformance = 1.5f;
 
     /// <summary>
-    /// ÃßÀû´ë»ó
+    /// ì¶”ì ëŒ€ìƒ
     /// </summary>
     Transform target;
 
     /// <summary>
-    /// ÃßÀû ÁßÀÎÁö Ç¥½ÃÇÏ´Â º¯¼ö true´Â ÃßÀûÁß
+    /// ì¶”ì  ì¤‘ì¸ì§€ í‘œì‹œí•˜ëŠ” ë³€ìˆ˜ trueëŠ” ì¶”ì ì¤‘
     /// </summary>
     bool isGuided = true;
     protected override void OnReset()
@@ -31,15 +31,15 @@ public class BossMissile : EnemyBase
         target = GameManager.Instance.Player.transform;
         isGuided = true;
     }
-
+    
     protected override void OnMoveUpdate(float deltaTime)
     {
         base.OnMoveUpdate(deltaTime);
         if (isGuided)
         {
-            Vector2 direcrion= target.position-transform.position;  //target À§Ä¡·Î °¡´Â ¹æÇâ
+            Vector2 direcrion= target.position-transform.position;  //target ìœ„ì¹˜ë¡œ ê°€ëŠ” ë°©í–¥
 
-            //ÇÃ·¹ÀÌ¾îÂÊÀ¸·Î ÃµÃµÈ÷ È¸ÀüÇÏ°Ô ¸¸µé±â
+            //í”Œë ˆì´ì–´ìª½ìœ¼ë¡œ ì²œì²œíˆ íšŒì „í•˜ê²Œ ë§Œë“¤ê¸°
             transform.right = -Vector3.Slerp(-transform.right,direcrion,deltaTime*guidedPerformance);
         }
     }

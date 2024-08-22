@@ -207,4 +207,12 @@ public class Player : MonoBehaviour
     {
         animator.SetTrigger(IsUse_Hash);    // 애니메이션으로 사용 처리 
     }
+
+    /// <summary>
+    /// 플레이어 사망 처리 함수
+    /// </summary>
+    public void Die()
+    {
+        Debug.Log("플레이어 죽음");
+    }
 }

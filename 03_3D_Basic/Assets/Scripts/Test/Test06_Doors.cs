@@ -30,4 +30,6 @@ public class Test06_Doors : TestBase
         Camera.main.transform.position = cam2.position;
         Camera.main.transform.rotation = cam2.rotation;
     }
+
+    // 열쇠를 먹으면 열리는 문 만들기
 }
