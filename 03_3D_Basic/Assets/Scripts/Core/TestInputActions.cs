@@ -98,6 +98,15 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PointerMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""97cf6383-3c2e-4010-b7e5-f6dfa6dd8965"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""TestWASD"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4eacf9c1-7f9b-42f1-be2c-49cc8982586f"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PointerMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -265,6 +285,7 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
         m_Test_LClick = m_Test.FindAction("LClick", throwIfNotFound: true);
         m_Test_RClick = m_Test.FindAction("RClick", throwIfNotFound: true);
         m_Test_TestWASD = m_Test.FindAction("TestWASD", throwIfNotFound: true);
+        m_Test_PointerMove = m_Test.FindAction("PointerMove", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -334,6 +355,7 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Test_LClick;
     private readonly InputAction m_Test_RClick;
     private readonly InputAction m_Test_TestWASD;
+    private readonly InputAction m_Test_PointerMove;
     public struct TestActions
     {
         private @TestInputActions m_Wrapper;
@@ -346,6 +368,7 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
         public InputAction @LClick => m_Wrapper.m_Test_LClick;
         public InputAction @RClick => m_Wrapper.m_Test_RClick;
         public InputAction @TestWASD => m_Wrapper.m_Test_TestWASD;
+        public InputAction @PointerMove => m_Wrapper.m_Test_PointerMove;
         public InputActionMap Get() { return m_Wrapper.m_Test; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -379,6 +402,9 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
             @TestWASD.started += instance.OnTestWASD;
             @TestWASD.performed += instance.OnTestWASD;
             @TestWASD.canceled += instance.OnTestWASD;
+            @PointerMove.started += instance.OnPointerMove;
+            @PointerMove.performed += instance.OnPointerMove;
+            @PointerMove.canceled += instance.OnPointerMove;
         }
 
         private void UnregisterCallbacks(ITestActions instance)
@@ -407,6 +433,9 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
             @TestWASD.started -= instance.OnTestWASD;
             @TestWASD.performed -= instance.OnTestWASD;
             @TestWASD.canceled -= instance.OnTestWASD;
+            @PointerMove.started -= instance.OnPointerMove;
+            @PointerMove.performed -= instance.OnPointerMove;
+            @PointerMove.canceled -= instance.OnPointerMove;
         }
 
         public void RemoveCallbacks(ITestActions instance)
@@ -443,5 +472,6 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
         void OnLClick(InputAction.CallbackContext context);
         void OnRClick(InputAction.CallbackContext context);
         void OnTestWASD(InputAction.CallbackContext context);
+        void OnPointerMove(InputAction.CallbackContext context);
     }
 }
