@@ -80,7 +80,7 @@
                 {
                     "name": "PointerMove",
                     "type": "Value",
-                    "id": "97cf6383-3c2e-4010-b7e5-f6dfa6dd8965",
+                    "id": "24b81c20-cdb1-4517-b565-ba2f0255fc4f",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -222,11 +222,11 @@
                 },
                 {
                     "name": "",
-                    "id": "4eacf9c1-7f9b-42f1-be2c-49cc8982586f",
+                    "id": "104a5cd9-e164-49d8-bd5a-4032ae38d9e8",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "PointerMove",
                     "isComposite": false,
                     "isPartOfComposite": false
