@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IPlatformRide
 {
     // 플레이어가 WASD입력을 받아서 이동한다.(액션 이름은 Movement)
     // WS로 전진/후진
@@ -56,6 +56,11 @@ public class Player : MonoBehaviour
     /// 남아있는 점프 쿨타임
     /// </summary>
     float jumpCoolRemains = 0.0f;
+
+    /// <summary>
+    /// 속도 적용 비율(1일때 정상 속도)
+    /// </summary>
+    float speedModifier = 1.0f;
 
     /// <summary>
     /// 지금 점프가 가능한지 확인하는 프로퍼티(바닥에 닿아있고 쿨타임이 다 되었다)
@@ -153,8 +158,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Movement(float deltaTime)
     {
-        // 새 이동할 위치 : 현재위치 + (초당 moveSpeed의 속도로, 오브젝트의 앞쪽 방향을 기준으로 전진/후진/정지)
-        Vector3 position = rigid.position + deltaTime * moveSpeed * moveDirection * transform.forward;
+        // 새 이동할 위치 : 현재위치 + (초당 moveSpeed * speedModifier의 속도로, 오브젝트의 앞쪽 방향을 기준으로 전진/후진/정지)
+        Vector3 position = rigid.position + deltaTime * moveSpeed * speedModifier * moveDirection * transform.forward;
 
         // 새 회전 : 현재 회전에서 추가로 (초당 rotateSpeed의 속도로, 오브젝트의 up을 축으로 좌회전/우회전/정지하는 회전) 
         Quaternion rotation = rigid.rotation * Quaternion.AngleAxis(deltaTime * rotateSpeed * rotateDirection, transform.up);
@@ -214,5 +219,60 @@ public class Player : MonoBehaviour
     public void Die()
     {
         Debug.Log("플레이어 죽음");
+    }
+
+    /// <summary>
+    /// 슬로우 디버프를 거는 함수
+    /// </summary>
+    /// <param name="slowRate">느려지는 비율(0.1이면 속도가 10% 상태로 설정됨)</param>
+    public void SetSlowDebuf(float slowRate)
+    {
+        //Debug.Log("슬로우 디버프");
+        StopAllCoroutines();
+        speedModifier = slowRate;
+    }
+
+    /// <summary>
+    /// 슬로우 디버프를 해제하는 함수
+    /// </summary>
+    /// <param name="duration">이 시간 후에 완전 해제</param>
+    public void RemoveSlowDebuf(float duration = 0.0f)
+    {
+        //Debug.Log("슬로우 디버프 - 해제 시작");
+        StopAllCoroutines();
+        StartCoroutine(RestoreSpeedModifier(duration));
+    }
+
+    /// <summary>
+    /// duration동안 speedModifier를 1로 되돌리는 코루틴
+    /// </summary>
+    /// <param name="duration">전체 진행 시간</param>
+    IEnumerator RestoreSpeedModifier(float duration)
+    {
+        float current = speedModifier;
+
+        float timeElapsed = 0.0f;
+        float inverseDuration = 1 / duration;
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+
+            speedModifier = Mathf.Lerp(current, 1.0f, timeElapsed * inverseDuration);
+            //Debug.Log($"슬로우 디버프 - 해제중({speedModifier:f2})");
+
+            yield return null;
+        }
+
+        speedModifier = 1.0f;
+        //Debug.Log("슬로우 디버프 - 해제 완료");
+    }
+
+    /// <summary>
+    /// 플랫폼 움직임에 따라 같이 움직이게 하는 함수
+    /// </summary>
+    /// <param name="moveDelta">플랫폼이 움직인 양</param>
+    public void OnRidePlatform(Vector3 moveDelta)
+    {
+        rigid.MovePosition(rigid.position + moveDelta);
     }
 }

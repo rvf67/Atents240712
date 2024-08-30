@@ -99,7 +99,7 @@ public class TurretTrace : TurretBase
         base.OnDrawGizmos();
 
         // 시야 범위 그리기
-        //Gizmos.DrawWireSphere(transform.position, sightRange);
+        //Gizmos.DrawWireSphere(transform.spawn, sightRange);
         Handles.color = Color.white;
         Handles.DrawWireDisc(transform.position, transform.up, sightRange, 3.0f);
 
