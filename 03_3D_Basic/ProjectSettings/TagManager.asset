@@ -15,8 +15,8 @@ TagManager:
   - PlayerSensor
   - PostProcess
   - Bullet
-  - 
-  - 
+  - Map
+  - MainCamera
   - 
   - 
   - 
