@@ -620,7 +620,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7424239445451419962, guid: 751853c4b8460bd41b8c9602f055c049, type: 3}
   m_PrefabInstance: {fileID: 3054389794077612419}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1704490299}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6d7fd0dc6b92ec47b09bc52294d5ed0, type: 3}
@@ -1794,6 +1794,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23fff9e84ccc9894fbf6f56ec6d59c14, type: 3}
+--- !u!1 &1704490299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2686282556787583377, guid: 751853c4b8460bd41b8c9602f055c049, type: 3}
+  m_PrefabInstance: {fileID: 3054389794077612419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1857625746
 Mesh:
   m_ObjectHideFlags: 0
@@ -3201,6 +3206,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1274702369}
     m_Modifications:
+    - target: {fileID: 1302248877595683546, guid: 3cdd14e13ba2bcd4cb8ee2e28b49d8b7, type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 1704490299}
     - target: {fileID: 1394437719970528400, guid: 3cdd14e13ba2bcd4cb8ee2e28b49d8b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.31
