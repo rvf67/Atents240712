@@ -21,6 +21,8 @@ public class Test12_Maze : TestBase
 
     public MazeVisualizer mazeVisualizer;
 
+    public MazeBuilder builder;
+
     protected override void OnTest1(InputAction.CallbackContext context)
     {
         PathDirection dir = PathDirection.North | PathDirection.West;
@@ -37,7 +39,8 @@ public class Test12_Maze : TestBase
 
     protected override void OnTest3(InputAction.CallbackContext context)
     {
-        cell.RefreshCorner(cornerMask);
+        //cell.RefreshCorner(cornerMask);
+        builder.Build();
     }
 
     protected override void OnTest4(InputAction.CallbackContext context)

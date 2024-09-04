@@ -122,6 +122,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &34089502 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3361041019514284169, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+  m_PrefabInstance: {fileID: 8282539931967487137}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07450b99d6fb5c246ad661c9bbab00ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &864514092
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +212,7 @@ MonoBehaviour:
   cornerMask: 0
   cell: {fileID: 1950615328}
   mazeVisualizer: {fileID: 864514093}
+  builder: {fileID: 34089502}
 --- !u!4 &1669771451
 Transform:
   m_ObjectHideFlags: 0
@@ -470,6 +482,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9247f42d495e90b48b1e7c8b8ae9f632, type: 3}
+--- !u!1001 &8282539931967487137
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485911618650752580, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349365744665638423, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
+      propertyPath: m_Name
+      value: MazeBuilder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3bd05ec73fd09aa44b2ea81d85d7d61b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -479,3 +548,4 @@ SceneRoots:
   - {fileID: 1669771451}
   - {fileID: 6352729187717216915}
   - {fileID: 864514094}
+  - {fileID: 8282539931967487137}

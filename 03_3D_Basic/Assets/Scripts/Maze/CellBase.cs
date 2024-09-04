@@ -86,7 +86,7 @@ public class CellBase
     {
         bool result = false;
         PathDirection corner = dir1 | dir2;
-        if (corner == (PathDirection.North | PathDirection.West)
+        if( corner == (PathDirection.North | PathDirection.West)
             || corner == (PathDirection.North | PathDirection.East)
             || corner == (PathDirection.South | PathDirection.East)
             || corner == (PathDirection.South | PathDirection.West))    // 4개 코너 중 하나인지 확인

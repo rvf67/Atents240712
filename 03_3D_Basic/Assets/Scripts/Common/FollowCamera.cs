@@ -26,7 +26,7 @@ public class FollowCamera : MonoBehaviour
 
     private void Start()
     {
-        if (target == null)
+        if(target == null)
         {
             Player player = GameManager.Instance.Player;
             target = player.transform.GetChild(8);
@@ -48,7 +48,7 @@ public class FollowCamera : MonoBehaviour
 
         // 플레이어와 카메라 사이에 장애물이 있을 때 장애물 앞쪽에 카메라가 존재하게 만들기
         Ray ray = new Ray(target.position, transform.position - target.position);   // 카메라 root에서 카메라 위치로 나가는 ray
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, length))
+        if( Physics.Raycast(ray, out RaycastHit hitInfo, length))
         {
             transform.position = hitInfo.point; // 충돌한 위치로 즉시 옮기기
         }
