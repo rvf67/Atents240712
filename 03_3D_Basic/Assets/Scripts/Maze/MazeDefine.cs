@@ -6,30 +6,11 @@ using System;
 [Flags]
 public enum PathDirection : byte
 {
-    None =0,
-    North =1,
-    East =2,
-    South=4,
-    West=8,
-}
-
-[Flags]
-public enum CornerMAsk : byte
-{
-    None =0,
-    NorthWest =1,
-    NorthEast =2,
-    SouthEast =4,
-    SouthWest =8,
-}
-
-public enum TestDirection : byte
-{
-    None =0,
-    North =1,
-    East =2,
-    South=4,
-    West=8,
+    None = 0,   // 0000 0000
+    North = 1,  // 0000 0001
+    East = 2,   // 0000 0010
+    South = 4,  // 0000 0100
+    West = 8,   // 0000 1000
 }
 
 /// <summary>
@@ -45,3 +26,11 @@ public enum CornerMask : byte
     SouthWest = 8,
 }
 
+public enum TestDirection : byte
+{
+    None = 0,   // 0000 0000
+    North = 1,  // 0000 0001
+    East = 2,   // 0000 0010
+    South = 4,  // 0000 0100
+    West = 8,   // 0000 1000
+}
