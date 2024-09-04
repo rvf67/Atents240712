@@ -70,10 +70,10 @@ public class Player : MonoBehaviour, IPlatformRide
     /// <summary>
     /// 점프 쿨타임을 확인하고 설정하기 위한 프로퍼티
     /// </summary>
-    float JumpCoolRemains
+    public float JumpCoolRemains
     {
         get => jumpCoolRemains;
-        set
+        private set
         {
             jumpCoolRemains = value;
             onJumpCoolTimeChange?.Invoke(jumpCoolRemains/jumpCoolTime); // 비율로 전달
@@ -109,7 +109,19 @@ public class Player : MonoBehaviour, IPlatformRide
         UseSensor useSensor = GetComponentInChildren<UseSensor>();  
         useSensor.onUse += (usable) => usable.Use();    // 사용 시도 신호가 들어오면 사용한다.
     }
-
+    private void Start()
+    {
+        VirtualStick stick = GameManager.Instance.Stick;
+        VirtualButton button = GameManager.Instance.Button;
+        if (stick != null)
+        {
+            stick.onMoveInput += (inputDelta) => SetInput(inputDelta, inputDelta.sqrMagnitude > 0.0025f);
+        }
+        if (button != null)
+        {
+            button.onJump += () => Jump();
+        }
+    }
     private void OnEnable()
     {
         inputActions.Player.Enable();
