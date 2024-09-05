@@ -70,13 +70,13 @@ public class Player : MonoBehaviour, IPlatformRide
     /// <summary>
     /// 점프 쿨타임을 확인하고 설정하기 위한 프로퍼티
     /// </summary>
-    public float JumpCoolRemains
+    float JumpCoolRemains
     {
         get => jumpCoolRemains;
-        private set
+        set
         {
             jumpCoolRemains = value;
-            onJumpCoolTimeChange?.Invoke(jumpCoolRemains/jumpCoolTime); // 비율로 전달
+            onJumpCoolTimeChange?.Invoke(jumpCoolRemains / jumpCoolTime); // 비율로 전달
         }
     }
 
@@ -106,22 +106,10 @@ public class Player : MonoBehaviour, IPlatformRide
             //Debug.Log(isGrounded);
         };
 
-        UseSensor useSensor = GetComponentInChildren<UseSensor>();  
+        UseSensor useSensor = GetComponentInChildren<UseSensor>();
         useSensor.onUse += (usable) => usable.Use();    // 사용 시도 신호가 들어오면 사용한다.
     }
-    private void Start()
-    {
-        VirtualStick stick = GameManager.Instance.Stick;
-        VirtualButton button = GameManager.Instance.Button;
-        if (stick != null)
-        {
-            stick.onMoveInput += (inputDelta) => SetInput(inputDelta, inputDelta.sqrMagnitude > 0.0025f);
-        }
-        if (button != null)
-        {
-            button.onJump += () => Jump();
-        }
-    }
+
     private void OnEnable()
     {
         inputActions.Player.Enable();
@@ -153,6 +141,27 @@ public class Player : MonoBehaviour, IPlatformRide
     private void OnUseInput(InputAction.CallbackContext context)
     {
         Use();
+    }
+
+    void Start()
+    {
+        //VirtualStick stick = GameManager.Instance.Stick;
+        //if (stick != null)
+        //{
+        //    // 델리게이트에 람다식 연결(0.05보다 더 움직일때만 움직인다고 전달)
+        //    stick.onMoveInput += (inputDelta) => SetInput(inputDelta, inputDelta.sqrMagnitude > 0.0025f);
+        //}
+
+        //VirtualButton button = GameManager.Instance.JumpButton;
+        //if(button != null)
+        //{
+        //    button.onClick += Jump;
+        //    onJumpCoolTimeChange += button.RefreshCoolTime;
+        //}
+
+        VirtualPad virtualPad = GameManager.Instance.VirtualPad;
+        virtualPad.SetStickBind(0, (inputDelta) => SetInput(inputDelta, inputDelta.sqrMagnitude > 0.0025f));
+        virtualPad.SetButtonBind(0, Jump, ref onJumpCoolTimeChange);
     }
 
     private void Update()

@@ -53,11 +53,4 @@ public class VirtualStick : MonoBehaviour, IDragHandler, IEndDragHandler
         onMoveInput?.Invoke(inputDelta/leverRange); //크기를  0~1사이로 정규화해서 보냄
     }
 
-    /// <summary>
-    /// 가상패드와의 모든 연결을 끊는 함수
-    /// </summary>
-    public void Disconnct()
-    {
-        onMoveInput = null;
-    }
 }
