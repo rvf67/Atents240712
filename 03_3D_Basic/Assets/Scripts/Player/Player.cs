@@ -31,6 +31,13 @@ public class Player : MonoBehaviour, IPlatformRide
     /// 점프 쿨타임
     /// </summary>
     public float jumpCoolTime = 1;
+    
+    /// <summary>
+    /// 플레이어 생존여부
+    /// </summary>
+    private bool isAlive = true;
+
+    VirtualPad virtualPad;
 
     /// <summary>
     /// 인풋 액션
@@ -85,6 +92,10 @@ public class Player : MonoBehaviour, IPlatformRide
     /// </summary>
     public Action<float> onJumpCoolTimeChange;
 
+    /// <summary>
+    /// 이 플레이어가 죽었음을 알리는 델리게이트
+    /// </summary>
+    public Action onDie;
     // 컴포넌트들
     Rigidbody rigid;
     Animator animator;
@@ -239,7 +250,22 @@ public class Player : MonoBehaviour, IPlatformRide
     /// </summary>
     public void Die()
     {
-        Debug.Log("플레이어 죽음");
+        if (isAlive)
+        {
+            animator.SetTrigger("Die");
+            Debug.Log("플레이어 죽음");
+            inputActions.Player.Disable();
+            GameManager.Instance.VirtualPad.Disconnect();
+            rigid.constraints =RigidbodyConstraints.None; //물리 잠금 모두 해제
+            Transform head = transform.GetChild(5);
+            rigid.AddForceAtPosition(-transform.forward, head.position, ForceMode.Impulse);
+            rigid.AddTorque(transform.up*1.5f,ForceMode.Impulse);
+            rigid.angularDrag = 0.01f;
+
+            onDie?.Invoke();
+            isAlive=false;
+            
+        }
     }
 
     /// <summary>
