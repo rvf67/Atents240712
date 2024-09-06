@@ -170,9 +170,9 @@ public class Player : MonoBehaviour, IPlatformRide
         //    onJumpCoolTimeChange += button.RefreshCoolTime;
         //}
 
-        VirtualPad virtualPad = GameManager.Instance.VirtualPad;
-        virtualPad.SetStickBind(0, (inputDelta) => SetInput(inputDelta, inputDelta.sqrMagnitude > 0.0025f));
-        virtualPad.SetButtonBind(0, Jump, ref onJumpCoolTimeChange);
+        //VirtualPad virtualPad = GameManager.Instance.VirtualPad;
+        //virtualPad.SetStickBind(0, (inputDelta) => SetInput(inputDelta, inputDelta.sqrMagnitude > 0.0025f));
+        //virtualPad.SetButtonBind(0, Jump, ref onJumpCoolTimeChange);
     }
 
     private void Update()
@@ -260,7 +260,7 @@ public class Player : MonoBehaviour, IPlatformRide
             Transform head = transform.GetChild(5);
             rigid.AddForceAtPosition(-transform.forward, head.position, ForceMode.Impulse);
             rigid.AddTorque(transform.up*1.5f,ForceMode.Impulse);
-            rigid.angularDrag = 0.01f;
+            rigid.angularDrag = 0.00001f;
 
             onDie?.Invoke();
             isAlive=false;
