@@ -42,5 +42,6 @@ public class Test98_AI : TestBase
     {
         //agent.remainingDistance;    // 목적지까지 남아있는 거리
         //agent.pathPending;          // 길찾기 계산이 끝났는지 아닌지 알려주는 프로퍼티(계산 중이면 true)
+        Debug.Log("도착");
     }
 }
