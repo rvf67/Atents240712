@@ -10,6 +10,6 @@ public class PlayerAttackBlendTree : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = player ?? GameManager.Instance.Player;
-        player.RestoreSpeed();
+        player?.RestoreSpeed();
     }
 }

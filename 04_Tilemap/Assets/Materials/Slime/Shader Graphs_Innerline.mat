@@ -44,7 +44,7 @@ Material:
     - _Max: 0.04
     - _Min: 0
     - _Ratio: 0.3
-    - _Thickness: 0.21
+    - _Thickness: 0.2
     m_Colors:
     - _Color: {r: 0, g: 1.7725486, b: 2.9960787, a: 0}
   m_BuildTextureStacks: []

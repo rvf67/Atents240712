@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5965544147111127567
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -8,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_SlimeEffect
-  m_Shader: {fileID: -6465566751694194690, guid: 63f8c52c7e7099b429fa3cc7118a7557, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: a45f41b4d6e90c74fb0109a96947f186, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -41,39 +54,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DissolveFade: 0.59
-    - _DissolveScale: 0.47
-    - _Fade: 40
-    - _Max: 0.01
-    - _Min: 0
+    - _DissolveFade: 1
+    - _DissolveScale: 40
+    - _Fade: 0
+    - _Max: 0
+    - _Min: 0.01
     - _OutlineMax: 0.01
     - _OutlineMin: 0
     - _OutlineRatio: 0.5
     - _OutlineThickness: 0
     - _PhaseSplit: 0
     - _PhaseThickness: 0.01
-    - _QueueControl: 0
-    - _QueueOffset: 0
     - _Ratio: 0.5
-    - _Scale: 0.5
+    - _Scale: 40
     - _Split: 0.5
     - _Thickness: 0.5
     m_Colors:
-    - _Color: {r: 1.886792, g: 0.5728272, b: 0, a: 0}
-    - _DissolveColor: {r: 2.9960787, g: 0.9096049, b: 0, a: 0}
-    - _OutlineColor: {r: 4, g: 0, b: 0.05242157, a: 0}
-    - _PhaseColor: {r: 2.211771, g: 4, b: 0.8981128, a: 0}
+    - _Color: {r: 2.996079, g: 0.2093376, b: 0, a: 0}
+    - _DissolveColor: {r: 2.996079, g: 0.2093376, b: 0, a: 0}
+    - _OutlineColor: {r: 2.996079, g: 0, b: 0, a: 0}
+    - _PhaseColor: {r: 0, g: 0.9993477, b: 2.996079, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &7812800143580092464
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7
