@@ -21,6 +21,12 @@ public class GridMap
     protected int height;
 
     /// <summary>
+    /// 상속받은 클래스에서 public GridMap(int width, int height) 생성자를 안만들어도 되게끔 하기 위한 생성자
+    /// </summary>
+    protected GridMap()
+    { }
+
+    /// <summary>
     /// 생성자
     /// </summary>
     /// <param name="width">맵의 가로 길이</param>
@@ -30,14 +36,14 @@ public class GridMap
         this.width = width;
         this.height = height;
 
-        nodes = new Node[width * height];
-        for (int y = 0; y < height; y++)
+        nodes = new Node[width*height];
+        for(int y = 0; y < height; y++)
         {
-            for (int x = 0; x < width; x++)
+            for(int x = 0; x < width; x++)
             {
                 //if( GridToIndex(x,y, out int? index))
                 //    nodes[index.Value] = new Node(x, y);
-                nodes[CalcIndex(x, y)] = new Node(x, y);
+                nodes[CalcIndex(x,y)] = new Node(x, y);
             }
         }
     }
@@ -62,7 +68,7 @@ public class GridMap
     public Node GetNode(int x, int y)
     {
         Node result = null;
-        if (GridToIndex(x, y, out int? index))
+        if(GridToIndex(x,y,out int? index))
         {
             result = nodes[index.Value];
         }
@@ -157,9 +163,9 @@ public class GridMap
         bool result = false;
         index = null;               // IsValidPosition가 false 일 때를 대비해서 값 설정
 
-        if (IsValidPosition(x, y))  // x,y가 맵 안인지 확인
+        if ( IsValidPosition(x,y))  // x,y가 맵 안인지 확인
         {
-            index = CalcIndex(x, y); // 맵 안이면 index 계산
+            index = CalcIndex(x,y); // 맵 안이면 index 계산
             result = true;          // 성공으로 체크
         }
 

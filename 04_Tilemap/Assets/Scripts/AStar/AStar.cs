@@ -28,7 +28,7 @@ public static class AStar
         List<Vector2Int> path = null;
 
         // 시작 위치와 도착 위치가 맵 안이고 벽이 아닐 때만 실행
-        if (map.IsValidPosition(start) && map.IsValidPosition(end) && !map.IsWall(start) && !map.IsWall(end))
+        if(map.IsValidPosition(start) && map.IsValidPosition(end) && !map.IsWall(start) && !map.IsWall(end))
         {
             map.ClearMapData();     // 맵 데이터 초기화
 
@@ -54,9 +54,9 @@ public static class AStar
                     close.Add(current); // close리스트에 current추가(current가 탐색 완료되었다고 표시)
 
                     // current의 주변 노드 중 open 리스트에 들어갈 수 있는 노드들을 open리스트에 추가하기
-                    for (int y = -1; y < 2; y++)
+                    for(int y = -1; y<2;y++)
                     {
-                        for (int x = -1; x < 2; x++)
+                        for(int x = -1; x<2;x++)
                         {
                             Node node = map.GetNode(current.X + x, current.Y + y);  // 주변 노드 가져오기
 
@@ -66,7 +66,7 @@ public static class AStar
                             if (node.nodeType == Node.NodeType.Wall) continue;  // 벽이다.
                             if (close.Contains(node)) continue;                 // close 리스트에 있다.
                                                                                 //if (close.Exists((x) => x == node)) continue;     // close 리스트에 있다.
-                                                                                // 대각선으로 이동하는데 옆에 벽이 있는 경우
+                            // 대각선으로 이동하는데 옆에 벽이 있는 경우
                             bool isDiagonal = (x * y) != 0;     // 대각선인지 확인(true면 대각선)
                             if (isDiagonal &&
                                 (map.IsWall(current.X + x, current.Y) || map.IsWall(current.X, current.Y + y)))
@@ -76,10 +76,10 @@ public static class AStar
                             float distance = isDiagonal ? diagonalDistance : sideDistance;
 
                             // node는 이미 open리스트에 있거나 어느 리스트에도 들어가지 않았다.
-                            if (node.G > current.G + distance) // 노드가 가진 G값이 current를 거쳐서 이동한 것 보다 크다(open리스트에 아직 들어가지 않은 경우에도 true가 된다.)
+                            if( node.G > current.G + distance ) // 노드가 가진 G값이 current를 거쳐서 이동한 것 보다 크다(open리스트에 아직 들어가지 않은 경우에도 true가 된다.)
                             {
-                                if (node.prev == null)                  // prev가 null이면 아직 open 리스트에 들어간적이 없다.
-                                {
+                                if( node.prev == null)                  // prev가 null이면 아직 open 리스트에 들어간적이 없다.
+                                {                                    
                                     node.H = GetHeuristic(node, end);   // 휴리스틱 계산
                                     open.Add(node);                     // 새로 open 리스트에 추가
                                 }
@@ -98,7 +98,7 @@ public static class AStar
             }
 
             // 마무리 작업( 도착지점에 도착 or 길을 못찾았다 )
-            if (current == end)
+            if( current == end )
             {
                 // 도착지점에 도착 => 경로 만들기
                 path = new List<Vector2Int>();

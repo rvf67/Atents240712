@@ -4,27 +4,29 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Test09_GridMap : TestBase
+public class Test09_AStar_Gridmap : TestBase
 {
     public int width = 7;
     public int height = 7;
     public Vector2Int start;
     public Vector2Int end;
+
     GridMap map;
 
     private void Start()
     {
         map = new GridMap(width, height);
+
         Node node;
-        node=map.GetNode(map.IndexToGrid(17));
-        node.nodeType=Node.NodeType.Wall;
+        node = map.GetNode(map.IndexToGrid(17));
+        node.nodeType = Node.NodeType.Wall;
 
         node = map.GetNode(map.IndexToGrid(24));
         node.nodeType = Node.NodeType.Wall;
-        
+
         node = map.GetNode(map.IndexToGrid(31));
         node.nodeType = Node.NodeType.Wall;
-        
+
         node = map.GetNode(map.IndexToGrid(37));
         node.nodeType = Node.NodeType.Wall;
 
@@ -54,5 +56,13 @@ public class Test09_GridMap : TestBase
         }
         sb.Append("End");
         Debug.Log(sb.ToString());
+
+        //string str = "";
+        //foreach (Vector2Int p in list)
+        //{
+        //    str += $"{p} -> ";
+        //}
+        //Debug.Log(str + "End");
+
     }
 }

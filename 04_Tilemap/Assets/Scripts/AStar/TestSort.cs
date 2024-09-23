@@ -18,7 +18,7 @@ public class TestSort : IComparable<TestSort>
 
     public int CompareTo(TestSort other)
     {
-        if (other == null) return -1;
+        if(other == null) return -1;
 
         return a.CompareTo(other.a);
     }
@@ -34,7 +34,7 @@ public class TestSort : IComparable<TestSort>
         return a.GetHashCode();
     }
 
-    public static bool operator ==(TestSort left, TestSort right)
+    public static bool operator == (TestSort left, TestSort right)
     {
         return left.a == right.a;
     }

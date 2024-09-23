@@ -44,7 +44,7 @@ public class Test08_ListSort : TestBase
         Node temp = new Node(0, 0);
         temp.G = 10;
         temp.H = 30;
-        list.Add(temp);
+        list.Add( temp );
 
         temp = new Node(1, 0);
         temp.G = 20;
@@ -103,7 +103,7 @@ public class Test08_ListSort : TestBase
         Debug.Log(a == b);
         Debug.Log(a == c);
 
-        Vector2Int temp = new Vector2Int(1, 0);
+        Vector2Int temp = new Vector2Int(1,0);
         Debug.Log(a == temp);
 
     }
@@ -128,9 +128,9 @@ public class Test08_ListSort : TestBase
         switch (sortType)
         {
             case SortType.intType:
-                if (orderType == OrderType.Accending)
+                if( orderType == OrderType.Accending )
                 {
-                    list.Sort((x, y) => x.a.CompareTo(y.a));
+                    list.Sort((x,y) => x.a.CompareTo(y.a));
                 }
                 else
                 {
