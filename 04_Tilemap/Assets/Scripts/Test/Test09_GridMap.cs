@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,8 +41,18 @@ public class Test09_GridMap : TestBase
         PrintList(path);
     }
 
+    /// <summary>
+    /// 경로 출력용 테스트 함수
+    /// </summary>
+    /// <param name="list">전체 경로</param>
     void PrintList(List<Vector2Int> list)
     {
-
+        StringBuilder sb = new StringBuilder();
+        foreach (Vector2Int p in list)
+        {
+            sb.Append($"{map.GridToIndex(p)} -> ");
+        }
+        sb.Append("End");
+        Debug.Log(sb.ToString());
     }
 }
