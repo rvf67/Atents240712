@@ -138,7 +138,7 @@ public class GridMap
     public bool IsSlime(int x, int y)
     {
         Node node = GetNode(x, y);
-        return node != null && node.nodeType == Node.NodeType.Wall;
+        return node != null && node.nodeType == Node.NodeType.Slime;
     }
 
     /// <summary>

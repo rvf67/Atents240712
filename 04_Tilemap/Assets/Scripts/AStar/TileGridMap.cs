@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class TileGridMap : GridMap
 {
     /// <summary>
-    /// 맵의 원점
+    /// 타일맵의 원점 (왼쪽 아래)
     /// </summary>
     Vector2Int origin;
 
