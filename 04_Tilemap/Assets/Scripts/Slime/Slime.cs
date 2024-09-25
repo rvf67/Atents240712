@@ -57,7 +57,7 @@ public class Slime : RecycleObject
     /// 이 슬라임이 위치하고 있는 노드
     /// </summary>
     Node current = null;
-
+    SpriteRenderer spriteRenderer;
     /// <summary>
     /// 경로를 보여줄지 말지 
     /// </summary>
@@ -107,7 +107,7 @@ public class Slime : RecycleObject
 
     private void Awake()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         mainMaterial = spriteRenderer.material;
         rb = GetComponent<Rigidbody2D>();
         path = new List<Vector2Int>();
@@ -187,10 +187,12 @@ public class Slime : RecycleObject
                         transform.Translate(Time.deltaTime * moveSpeed * direction.normalized);
                         Current = map.GetNode(transform.position);
                     }
+                    spriteRenderer.sortingOrder = -Mathf.FloorToInt(transform.position.y *100);
                     pathWaitTime = 0;
                 }
                 else
                 {
+
                     pathWaitTime += Time.deltaTime;
                 }
             }
