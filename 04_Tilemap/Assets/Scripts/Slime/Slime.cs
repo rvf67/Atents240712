@@ -52,6 +52,7 @@ public class Slime : RecycleObject
     /// </summary>
     PathLine pathLine;
 
+    Transform pool;
     /// <summary>
     /// 이 슬라임이 위치하고 있는 노드
     /// </summary>
@@ -111,6 +112,8 @@ public class Slime : RecycleObject
         rb = GetComponent<Rigidbody2D>();
         path = new List<Vector2Int>();
         pathLine = transform.GetComponentInChildren<PathLine>();
+
+        pool = transform.parent;
     }
 
     private void Update()
@@ -134,16 +137,13 @@ public class Slime : RecycleObject
         mainMaterial.SetFloat(PhaseThicknessID, VisiblePhaseThickness); // 페이즈 두깨 원상복구 시키기
         mainMaterial.SetFloat(PhaseSplitID, 1);         // 페이즈 시작 값으로 설정
         mainMaterial.SetFloat(DissolveFadeID, 1);       // 디졸브 시작 값으로 설정
-
+        ShowPath(GameManager.Instance.ShowSlimePath);   // 게임 매니저에 설정된대로 슬라임의 경로 보이기
         isMoveActivate = false;
     }
-
     protected override void OnDisable()
     {
         // ReturnToPool()에서 할 일을 여기로
-
-        path.Clear();
-        pathLine.ClearPath();
+        
         base.OnDisable();
     }
 
@@ -224,11 +224,15 @@ public class Slime : RecycleObject
         mainMaterial.SetFloat(PhaseSplitID, 0);         // 숫자 0으로 정리하기
     }
 
+    public Action onDie;
+
     public void Die()
     {
-        isMoveActivate = false;
+        isMoveActivate = false;         //죽으면 이동중지
         // 죽을 때 Dissolve 작동
-        StartCoroutine(StartDissolve());
+        onDie?.Invoke();                //죽었다고 알리기
+        onDie = null;                   //델리게이트 초기화
+        StartCoroutine(StartDissolve());    
     }
 
     IEnumerator StartDissolve()
@@ -249,8 +253,8 @@ public class Slime : RecycleObject
         }
 
         mainMaterial.SetFloat(DissolveFadeID, 0);       // 숫자 0으로 정리하기
-        
-        gameObject.SetActive(false);                    // 게임 오브젝트 비활성화
+
+        ReturnToPool();
     }
 
     /// <summary>
@@ -304,5 +308,19 @@ public class Slime : RecycleObject
         {
             pathLine.ClearPath();
         }
+    }
+
+    /// <summary>
+    /// 비활성화 하면서 처리해야할 코드들
+    /// </summary>
+    public void ReturnToPool()
+    {
+        transform.SetParent(pool);
+        Current = null;
+
+        path.Clear();
+        pathLine.ClearPath();
+
+        gameObject.SetActive(false);
     }
 }

@@ -39,8 +39,11 @@ public class Spawner : MonoBehaviour
         spawnAreaList = mapArea.CalcSpawnArea(transform.position,size);
         //StartCoroutine("SlimeSpawn");
     }
+
+
     private void Update()
     {
+        
         if (slimeCount < capacity)
         {
             elapsedTime += Time.deltaTime; //시간 누적(캐퍼시티가 남아있을 때만 증가=> 캐퍼시티가 가득차있다가 남는 공간이 생기면
@@ -61,7 +64,15 @@ public class Spawner : MonoBehaviour
         {
             Slime slime = Factory.Instance.GetSlime(spawnablePosition);
             slime.Initialize(mapArea.GridMap,spawnablePosition);
+            slime.onDie += () =>
+            {
+                slimeCount--;
+            };
             slimeCount++;
+            
+            //capacity 이하로 내려가면 다시 스폰
+            //슬라임이 스폰될때 부모가 스포너
+            //슬라임이 디스폰될때 다시풀을 슬리임의 부모
         }
     }
 
