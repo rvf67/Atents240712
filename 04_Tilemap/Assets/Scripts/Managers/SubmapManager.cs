@@ -219,7 +219,7 @@ public class SubmapManager : MonoBehaviour
         }
 
         // 완료된 작업은 작업리스트에서 제거
-        foreach (int index in unloadWork00Complete)
+        foreach (int index in unloadWorkComplete)
         {
             unloadWork.RemoveAll((x) => x == index);  // loadWork에서 값이 index인 항목은 모두 제거
         }
