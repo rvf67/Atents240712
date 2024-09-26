@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Test/Test13_Scene_AsyncLoad.unity
     guid: f14954fa54faece46b3c67fb86ae9c7e
   - enabled: 1
-    path: Assets/Scenes/Common/LoadSampleScene.unity
+    path: Assets/Scenes/Test/Test10_AStar_TileGridmap.unity
     guid: 6c668528d8c8b784e9612475ce255e95
   m_configObjects: {}

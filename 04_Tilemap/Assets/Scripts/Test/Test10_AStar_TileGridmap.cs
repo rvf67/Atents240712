@@ -75,11 +75,4 @@ public class Test10_AStar_TileGridmap : TestBase
             Debug.Log(sb.ToString());
         }
     }
-
-    protected override void OnTest1(InputAction.CallbackContext context)
-    {
-        Debug.Log(background.origin);
-
-        tileGridMap.Test_CalcIndex(0, 0);
-    }
 }

@@ -48,17 +48,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""63a802dd-108a-41d5-b0d2-4f40d34a18c2"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KM"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""WASD"",
                     ""id"": ""39c60ddf-a7e8-4327-9dce-7005143b685b"",
                     ""path"": ""2DVector"",
@@ -128,12 +117,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         },
         {
             ""name"": ""UI"",
-            ""id"": ""5ddcfed7-b958-442e-a852-281bb78d961a"",
+            ""id"": ""af7d4933-9434-4c14-ad4d-4a2b479a438f"",
             ""actions"": [
                 {
                     ""name"": ""Click"",
                     ""type"": ""Button"",
-                    ""id"": ""264b4be1-55c0-4d27-9a43-b550de1bff33"",
+                    ""id"": ""2c10e1d2-eb82-4b03-910b-2b5c9d295659"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -142,7 +131,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""AnyKey"",
                     ""type"": ""Button"",
-                    ""id"": ""99308190-5cd3-4e3c-8bd0-74e4f8481cfd"",
+                    ""id"": ""208704af-c451-4112-afa4-44a84c14251d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -152,34 +141,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""a27674b8-4bc2-4521-958e-c7058d82a20c"",
-                    ""path"": ""<Keyboard>/anyKey"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AnyKey"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1b47be84-1550-4613-bd9a-e92742c38556"",
+                    ""id"": ""94e5f705-3d00-4ba0-be62-cb45b978800c"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KM"",
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5aac7239-d22c-4ca9-80e6-cc5704989e27"",
+                    ""id"": ""46303332-52c2-4ef2-8576-579953bdc1db"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KM"",
                     ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72bf7963-2e01-439e-92a8-42f16fd1717b"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""AnyKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }

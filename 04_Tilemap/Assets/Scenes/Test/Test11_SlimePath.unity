@@ -122,7 +122,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &339194557
+--- !u!114 &99802030 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 148198841445363573, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
+  m_PrefabInstance: {fileID: 702573483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f020cde396ef53346b20046823d2e2f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &356313098
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -130,17 +141,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 148198841445363573, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
+      propertyPath: moveSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7132129417360580315, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
       propertyPath: m_Name
-      value: Slime
+      value: BlockSlime
       objectReference: {fileID: 0}
     - target: {fileID: 8677540801406107725, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.74
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 8677540801406107725, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.52
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8677540801406107725, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -353,7 +368,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0000000003e89ca5cb0d49bc5148850025f5abe36fefb124f52ce0ab
+  m_ApplyToSortingLayers: 000000002d7cfebb95bf7f0ea5ce04e9e5be1927b32ac4b7cf157130478ae278
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -398,7 +413,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &622793036
+--- !u!1001 &702573483
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -406,21 +421,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 148198841445363573, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
-      propertyPath: moveSpeed
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7132129417360580315, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
       propertyPath: m_Name
-      value: BlockSlime
+      value: Slime
       objectReference: {fileID: 0}
     - target: {fileID: 8677540801406107725, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.45
+      value: -4.49
       objectReference: {fileID: 0}
     - target: {fileID: 8677540801406107725, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.64
+      value: -0.47
       objectReference: {fileID: 0}
     - target: {fileID: 8677540801406107725, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -459,66 +470,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
---- !u!114 &622793037 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 148198841445363573, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
-  m_PrefabInstance: {fileID: 622793036}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f020cde396ef53346b20046823d2e2f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1039558281
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1039558283}
-  - component: {fileID: 1039558284}
-  m_Layer: 0
-  m_Name: Test11_SlimePath
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1039558283
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039558281}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1039558284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039558281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64a28b85dbbc7544eae2d5e4217129fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seed: -1
-  background: {fileID: 1237009911}
-  obstacle: {fileID: 1160549472}
-  slime: {fileID: 1501663274}
-  blockSlime: {fileID: 622793037}
 --- !u!1 &1160549469
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,8 +541,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 615640943
-  m_SortingLayer: 6
+  m_SortingLayerID: 243253141
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1505,6 +1456,17 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1233852855 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 148198841445363573, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
+  m_PrefabInstance: {fileID: 356313098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f020cde396ef53346b20046823d2e2f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1237009908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,7 +1538,7 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1516443645
+  m_SortingLayerID: -1140949971
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -5649,17 +5611,55 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1501663274 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 148198841445363573, guid: 9244bc67e9493834a845591493bf2eec, type: 3}
-  m_PrefabInstance: {fileID: 339194557}
+--- !u!1 &1794418651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1794418652}
+  - component: {fileID: 1794418653}
+  m_Layer: 0
+  m_Name: Test11_SlimePath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1794418652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794418651}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1794418653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794418651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f020cde396ef53346b20046823d2e2f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8312d4b67d7921d47b12056c2ff608e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: -1
+  background: {fileID: 1237009911}
+  obstacle: {fileID: 1160549472}
+  slime: {fileID: 99802030}
+  blockSlime: {fileID: 1233852855}
 --- !u!1 &2076106458
 GameObject:
   m_ObjectHideFlags: 0
@@ -5713,6 +5713,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 2076106460}
-  - {fileID: 339194557}
-  - {fileID: 622793036}
-  - {fileID: 1039558283}
+  - {fileID: 702573483}
+  - {fileID: 1794418652}
+  - {fileID: 356313098}

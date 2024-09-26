@@ -689,7 +689,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1432325981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7be9af570d06d4484a7bbc4d8ce914, type: 3}
+  m_Script: {fileID: 11500000, guid: 904bddfa29d4b0a40b14fa1165e7c9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   seed: -1
@@ -728,7 +728,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 750, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650692464
@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 1894032668}
   - component: {fileID: 1894032671}
   - component: {fileID: 1894032670}
-  - component: {fileID: 1894032672}
+  - component: {fileID: 1894032669}
   m_Layer: 5
   m_Name: LoadingBackground
   m_TagString: Untagged
@@ -970,6 +970,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1894032669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894032667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab64b41f3382ff649b0b648105014ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: LoadSampleScene
+  tickTime: 0.1
+  loadingBarSpeed: 1
 --- !u!114 &1894032670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,23 +1023,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894032667}
   m_CullTransparentMesh: 1
---- !u!114 &1894032672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894032667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2a363fe1d1e60547964622fdcee7e0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextSeneName: LoadSampleScene
-  loadingText: {fileID: 1650692464}
-  tickTime: 0.2
-  loadingBar: {fileID: 530246166}
-  loadingBarSpeed: 1
 --- !u!1 &2122157332
 GameObject:
   m_ObjectHideFlags: 0
