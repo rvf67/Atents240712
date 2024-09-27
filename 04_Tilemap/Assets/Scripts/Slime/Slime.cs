@@ -37,6 +37,11 @@ public class Slime : RecycleObject
     public float VisiblePhaseThickness = 0.1f;
 
     /// <summary>
+    /// 슬라임이 제공하는 수명 보너스
+    /// </summary>
+    public float lifeTimeBonus = 2.0f;
+
+    /// <summary>
     /// 슬라임이 움직일 그리드 맵
     /// </summary>
     TileGridMap map;
@@ -96,7 +101,7 @@ public class Slime : RecycleObject
         {
             if (current != value)       // current에 변화가 있을 때
             {
-                if( current != null )   // 기존 current가 null 아니었다면
+                if (current != null)   // 기존 current가 null 아니었다면
                 {
                     current.nodeType = Node.NodeType.Plain; // 노드의 타입을 plain으로 되돌리기
                 }
@@ -108,6 +113,11 @@ public class Slime : RecycleObject
             }
         }
     }
+
+    /// <summary>
+    /// 슬라임이 죽을 때 플레이어에게 주는 수명 보너스 확인용 프로퍼티
+    /// </summary>
+    public float LifeTimeBonus => lifeTimeBonus;
 
     /// <summary>
     /// 슬라임이 죽었음을 알리는 델리게이트
@@ -183,15 +193,15 @@ public class Slime : RecycleObject
     /// </summary>
     private void MoveUpdate()
     {
-        if(isMoveActivate)  //isMoveActivate가 활성화 되어 있을 때만 처리
+        if (isMoveActivate)  //isMoveActivate가 활성화 되어 있을 때만 처리
         {
             // path가 설정되어 있고, 기다리는 시간도 최대 기다리는 시간보다 작다.
-            if ( path != null && path.Count > 0 && pathWaitTime < maxPathWaitTime)
+            if (path != null && path.Count > 0 && pathWaitTime < maxPathWaitTime)
             {
                 Vector2Int destGrid = path[0];                      // 다음 목적지의 그리드 좌표
 
                 // destGrid가 슬라임이 아니거나, destGrid가 내가 있는 위치(=이 칸이 슬라임이더라도 나는 제외)
-                if (!map.IsSlime(destGrid) || map.GetNode(destGrid) == Current) 
+                if (!map.IsSlime(destGrid) || map.GetNode(destGrid) == Current)
                 {
                     Vector3 destPos = map.GridToWorld(destGrid);        // 다음 목적지의 월드 좌표
                     Vector3 direction = destPos - transform.position;   // 다음 목적지로 가는 방향
@@ -239,10 +249,10 @@ public class Slime : RecycleObject
         while (timeElapsed < phaseDuration)             // 시간 될때까지 반복
         {
             timeElapsed += Time.deltaTime;              // 시간 누적
-            
+
             //mainMaterial.SetFloat(PhaseSplitID, 1 - (timeElapsed/phaseDuration));
             mainMaterial.SetFloat(PhaseSplitID, 1 - (timeElapsed * phaseNormalize));    // split값을 1 -> 0으로 점점 감소시키기
-            
+
             yield return null;
         }
 
@@ -289,7 +299,7 @@ public class Slime : RecycleObject
     public void ShowOutline(bool isShow = true)
     {
         // isShow가 true면 VisibleOutlineThickness, 아니면 0으로 세팅
-        mainMaterial.SetFloat(OutlineThicknessID, isShow ? VisibleOutlineThickness : 0);  
+        mainMaterial.SetFloat(OutlineThicknessID, isShow ? VisibleOutlineThickness : 0);
     }
 
     /// <summary>
@@ -299,7 +309,7 @@ public class Slime : RecycleObject
     public void SetDestination(Vector2Int destination)
     {
         path = AStar.PathFind(map, GridPosition, destination);  // 경로 찾기
-        if(isShowPath)
+        if (isShowPath)
         {
             pathLine.DrawPath(map, path);   // 경로 그려주기
         }

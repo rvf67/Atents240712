@@ -11,4 +11,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test/Test10_AStar_TileGridmap.unity
     guid: 6c668528d8c8b784e9612475ce255e95
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_0_0.unity
+    guid: 3a8c57bfde0da56479a4cb61577f6a1e
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_0_1.unity
+    guid: 2e095820fad5b06489ef15b3c4b21c8a
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_0_2.unity
+    guid: 99d7da7d23f92b14f945c5e8aebfb65f
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_1_0.unity
+    guid: 150a8cddb1bf0b34fb706252b7cf9336
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_1_1.unity
+    guid: f600299477e1a9740a96ae1b79dc0ba1
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_1_2.unity
+    guid: a1c9b6004c7c1ef45b6c5cb0b495e5a5
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_2_0.unity
+    guid: c6e51d75b4b8cc04996c9ed17baa256f
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_2_1.unity
+    guid: 4c5b9fd2cf8edfb43b15f83cc7c0d67c
+  - enabled: 1
+    path: Assets/Scenes/Seemless/Seemless_2_2.unity
+    guid: a9eb3589e55c9bb4bb80858fa7df9c84
   m_configObjects: {}
