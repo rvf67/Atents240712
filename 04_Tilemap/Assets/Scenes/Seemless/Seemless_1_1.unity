@@ -5893,8 +5893,12 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 861439945722661074, guid: 6235a98d819a78044aa63fda6dc62044, type: 3}
+      propertyPath: capacity
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 861439945722661074, guid: 6235a98d819a78044aa63fda6dc62044, type: 3}
       propertyPath: interval
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4945746342066616043, guid: 6235a98d819a78044aa63fda6dc62044, type: 3}
       propertyPath: m_LocalPosition.x

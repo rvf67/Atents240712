@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -157,6 +156,7 @@ public class Player : MonoBehaviour
             if (isAttackValid)
             {
                 slime.Die();                    // 공격이 유효할 때 영역안에 들어오면 즉시 사망
+                EnemyKill(slime.LifeTimeBonus); // 적 킬처리
             }
             else
             {

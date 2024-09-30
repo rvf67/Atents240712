@@ -17,7 +17,7 @@ public class Test15_SubmapManager : TestBase
     {
         submapManager = GameManager.Instance.SubmapManager;
     }
-
+#if UNITY_EDITOR
     protected override void OnTest1(InputAction.CallbackContext context)
     {
         submapManager.Test_LoadScene(targetX, targetY);
@@ -38,5 +38,5 @@ public class Test15_SubmapManager : TestBase
         submapManager.Test_RefreshScenes(targetX, targetY);
     }
 
-
+#endif
 }

@@ -86,9 +86,8 @@ GameObject:
   - component: {fileID: 1709252498436770917}
   - component: {fileID: 8577232043094798639}
   - component: {fileID: 7650201626651996777}
-  - component: {fileID: 2588570460712483394}
   m_Layer: 5
-  m_Name: KillCount
+  m_Name: ImageNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,18 +166,6 @@ MonoBehaviour:
   - {fileID: 613170802, guid: 4835e9ddaa361164d94c23c47967928c, type: 3}
   - {fileID: -89686301, guid: 4835e9ddaa361164d94c23c47967928c, type: 3}
   - {fileID: 154884713, guid: 4835e9ddaa361164d94c23c47967928c, type: 3}
---- !u!114 &2588570460712483394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2546365084100535467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cadca4076c62f642afe45e1d291a680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6488751144446987438
 GameObject:
   m_ObjectHideFlags: 0
