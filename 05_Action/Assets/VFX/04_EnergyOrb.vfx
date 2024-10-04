@@ -167,10 +167,10 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 554
-    y: -469
-    width: 4511
-    height: 2377
+    x: 555
+    y: -467
+    width: 4510
+    height: 2374
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -723,7 +723,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614583}
   - {fileID: 8926484042661614585}
   dataType: 0
-  capacity: 32
+  capacity: 4
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -3247,7 +3247,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614653}
   - {fileID: 8926484042661614687}
   dataType: 0
-  capacity: 1000
+  capacity: 256
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -4848,8 +4848,8 @@ MonoBehaviour:
   - {fileID: 8926484042661614739}
   - {fileID: 8926484042661614762}
   dataType: 1
-  capacity: 90000
-  stripCapacity: 1000
+  capacity: 23040
+  stripCapacity: 256
   particlePerStripCount: 90
   needsComputeBounds: 0
   boundsMode: 0
