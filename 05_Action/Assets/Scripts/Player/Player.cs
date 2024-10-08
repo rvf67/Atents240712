@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInputController), typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerInputController), typeof(PlayerMovement), typeof(PlayerAttack))]
 public class Player : MonoBehaviour
 {
     // 컴포넌트 들
@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     PlayerMovement movement;
     PlayerAttack attack;
 
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
         inputController = GetComponent<PlayerInputController>();
         movement = GetComponent<PlayerMovement>();
         attack = GetComponent<PlayerAttack>();
+
         inputController.onMove += movement.SetDirection;
         inputController.onMoveModeChange += movement.ToggleMoveMode;
         inputController.onAttack += attack.OnAttackInput;

@@ -16,11 +16,13 @@ public class PlayerInputController : MonoBehaviour
     /// </summary>
     public Action onMoveModeChange;
 
+    /// <summary>
+    /// 공격 입력을 전달하는 델리게이트
+    /// </summary>
     public Action onAttack;
 
     // 인풋 액션 에셋
     PlayerInputActions inputActions;
-    PlayerAttack attack;
 
     private void Awake()
     {
@@ -34,10 +36,7 @@ public class PlayerInputController : MonoBehaviour
         inputActions.Player.Move.canceled += OnMove;
         inputActions.Player.MoveModeChange.performed += OnMoveModeChange;
         inputActions.Player.Attack.performed += OnAttack;
-
     }
-
-    
 
     private void OnDisable()
     {
@@ -48,18 +47,20 @@ public class PlayerInputController : MonoBehaviour
         inputActions.Player.Disable();
     }
 
-    private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void OnMove(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
         onMove?.Invoke(input, !context.canceled);
     }
 
-    private void OnMoveModeChange(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void OnMoveModeChange(InputAction.CallbackContext context)
     {
         onMoveModeChange?.Invoke();
     }
+
     private void OnAttack(InputAction.CallbackContext context)
     {
         onAttack?.Invoke();
     }
+
 }

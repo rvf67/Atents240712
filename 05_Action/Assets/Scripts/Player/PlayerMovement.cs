@@ -41,6 +41,11 @@ public class PlayerMovement : MonoBehaviour
     Vector3 direction = Vector3.zero;
 
     /// <summary>
+    /// 현재 이동 상태를 확인하기 위한 프로퍼티
+    /// </summary>
+    public MoveState MoveMode => currentMoveMode;
+
+    /// <summary>
     /// 이동할 방향을 확인하고 설정하기 위한 프로퍼티
     /// </summary>
     public Vector3 Direction
@@ -55,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// 이동 상태 표시용 enum
     /// </summary>
-    enum MoveState : byte
+    public enum MoveState : byte
     {
         Stop,   // 정지 상태
         Walk,   // 걷기 상태
