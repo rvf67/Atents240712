@@ -89,12 +89,12 @@ public class InvenSlot
     /// <summary>
     /// 슬롯의 아이템이 변경되었음을 알리는 델리게이트
     /// </summary>
-    public Action onSlotItemChange;
+    public event Action onSlotItemChange;
 
     /// <summary>
     /// 아이템을 장비했음을 알리는 델리게이트(InvenSlot:장비한 아이템이 들어있는 슬롯)
     /// </summary>
-    public Action<InvenSlot> onItemEquip;
+    public event Action<InvenSlot> onItemEquip;
 
     /// <summary>
     /// 슬롯 생성자

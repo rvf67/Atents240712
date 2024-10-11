@@ -134,6 +134,96 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""e18ea3ff-864a-4512-95e6-8c58f56f1646"",
+            ""actions"": [
+                {
+                    ""name"": ""InvenOnOff"",
+                    ""type"": ""Button"",
+                    ""id"": ""50206a50-8549-4a15-a7fc-2329fc05e254"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""160b1c3d-48e4-4c82-9ee1-e0987a6f1e17"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Wheel"",
+                    ""type"": ""Value"",
+                    ""id"": ""da05c4d7-6af5-480b-9ef6-255ed5c8bbf1"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c89b474e-3e8c-49a5-9aa6-e207e6978b39"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InvenOnOff"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee02fa4a-b202-4e57-9489-8ac1c30ce7a5"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""427eb56c-cf6f-4e43-a2c9-ff1f568225cf"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""70dcf7df-86b9-482b-a1d6-552fc50488b9"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b29c8169-5772-49cb-8ae2-fc250b9b42fa"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Wheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -160,6 +250,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_MoveModeChange = m_Player.FindAction("MoveModeChange", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_InvenOnOff = m_UI.FindAction("InvenOnOff", throwIfNotFound: true);
+        m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
+        m_UI_Wheel = m_UI.FindAction("Wheel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -279,6 +374,68 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_InvenOnOff;
+    private readonly InputAction m_UI_Click;
+    private readonly InputAction m_UI_Wheel;
+    public struct UIActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @InvenOnOff => m_Wrapper.m_UI_InvenOnOff;
+        public InputAction @Click => m_Wrapper.m_UI_Click;
+        public InputAction @Wheel => m_Wrapper.m_UI_Wheel;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @InvenOnOff.started += instance.OnInvenOnOff;
+            @InvenOnOff.performed += instance.OnInvenOnOff;
+            @InvenOnOff.canceled += instance.OnInvenOnOff;
+            @Click.started += instance.OnClick;
+            @Click.performed += instance.OnClick;
+            @Click.canceled += instance.OnClick;
+            @Wheel.started += instance.OnWheel;
+            @Wheel.performed += instance.OnWheel;
+            @Wheel.canceled += instance.OnWheel;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @InvenOnOff.started -= instance.OnInvenOnOff;
+            @InvenOnOff.performed -= instance.OnInvenOnOff;
+            @InvenOnOff.canceled -= instance.OnInvenOnOff;
+            @Click.started -= instance.OnClick;
+            @Click.performed -= instance.OnClick;
+            @Click.canceled -= instance.OnClick;
+            @Wheel.started -= instance.OnWheel;
+            @Wheel.performed -= instance.OnWheel;
+            @Wheel.canceled -= instance.OnWheel;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_KMSchemeIndex = -1;
     public InputControlScheme KMScheme
     {
@@ -293,5 +450,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnMoveModeChange(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnInvenOnOff(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
+        void OnWheel(InputAction.CallbackContext context);
     }
 }
