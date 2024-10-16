@@ -115,12 +115,12 @@
         },
         {
             "name": "UI",
-            "id": "e18ea3ff-864a-4512-95e6-8c58f56f1646",
+            "id": "03da7151-fe74-4740-a0c8-d5132c9f0fc5",
             "actions": [
                 {
                     "name": "InvenOnOff",
                     "type": "Button",
-                    "id": "50206a50-8549-4a15-a7fc-2329fc05e254",
+                    "id": "5b77cf00-465d-44d9-8f70-33aa598321bf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -129,7 +129,7 @@
                 {
                     "name": "Click",
                     "type": "Button",
-                    "id": "160b1c3d-48e4-4c82-9ee1-e0987a6f1e17",
+                    "id": "e7ae6c3e-b9c2-4294-ac4c-62593e9f8b6a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -138,7 +138,7 @@
                 {
                     "name": "Wheel",
                     "type": "Value",
-                    "id": "da05c4d7-6af5-480b-9ef6-255ed5c8bbf1",
+                    "id": "c3ce3527-0539-474f-8c06-2dc2f104c076",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
@@ -148,18 +148,18 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "c89b474e-3e8c-49a5-9aa6-e207e6978b39",
+                    "id": "11809d63-34f4-4c61-a2c7-14b1beb6426f",
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KM",
                     "action": "InvenOnOff",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "ee02fa4a-b202-4e57-9489-8ac1c30ce7a5",
+                    "id": "87a85548-5fec-4c25-9213-eaf26304988d",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -170,7 +170,7 @@
                 },
                 {
                     "name": "",
-                    "id": "427eb56c-cf6f-4e43-a2c9-ff1f568225cf",
+                    "id": "e6c75f91-1c71-4641-974e-e93d4b2dd1d3",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
@@ -181,7 +181,7 @@
                 },
                 {
                     "name": "",
-                    "id": "70dcf7df-86b9-482b-a1d6-552fc50488b9",
+                    "id": "2c2e5405-e3c0-403e-a8d2-f0d8c7ae15bd",
                     "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
@@ -192,7 +192,7 @@
                 },
                 {
                     "name": "",
-                    "id": "b29c8169-5772-49cb-8ae2-fc250b9b42fa",
+                    "id": "2889d6de-f200-44e4-88f3-c82f538f72ed",
                     "path": "<Mouse>/scroll/y",
                     "interactions": "",
                     "processors": "",

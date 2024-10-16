@@ -1,4 +1,4 @@
-#define PrintTestLog
+//#define PrintTestLog
 
 using System;
 using System.Collections;

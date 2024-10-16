@@ -1,5 +1,6 @@
-#define PrintTestLog
+//#define PrintTestLog
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,12 +35,12 @@ public class Inventory
     /// <summary>
     /// 인벤토리의 수요자
     /// </summary>
-    Player owner;
+    PlayerInventory owner;
 
     /// <summary>
     /// 소유자 확인용 프로퍼티
     /// </summary>
-    public Player Owner => owner;
+    public PlayerInventory Owner => owner;
 
     /// <summary>
     /// 인벤토리 슬롯에 접근하기 위한 인덱서
@@ -58,7 +59,7 @@ public class Inventory
     /// </summary>
     /// <param name="owner">인벤토리의 소유자</param>
     /// <param name="size">인벤토리의 크기(기본값은 6)</param>
-    public Inventory(Player owner, uint size = Default_Inventory_Size)
+    public Inventory(PlayerInventory owner, uint size = Default_Inventory_Size)
     {
         slots = new InvenSlot[size];
         for (uint i = 0; i < slots.Length; i++)
@@ -85,7 +86,7 @@ public class Inventory
         {
             // 인덱스가 정상이다.
             ItemData itemData = itemDataManager[code];      // 아이템 데이터 찾아 놓기
-            if( slot.IsEmpty)                       // 슬롯이 비어있는지 확인
+            if (slot.IsEmpty)                       // 슬롯이 비어있는지 확인
             {
                 slot.AssignSlotItem(itemData);      // 슬롯이 비어있으면 아이템 설정
                 result = true;
@@ -93,7 +94,7 @@ public class Inventory
             else
             {
                 // 슬롯이 비어있지 않다.
-                if(slot.ItemData == itemData)      // 같은 종류의 아이템인지 확인         
+                if (slot.ItemData == itemData)      // 같은 종류의 아이템인지 확인         
                 {
                     // 같은 종류의 아이템이 들어있다.
                     result = slot.IncreaseSlotItem(out _);  // 아이템 증가 시도(증가되면 true, 안되면 false)
@@ -162,7 +163,7 @@ public class Inventory
     /// <param name="slotIndex">아이템을 비울 슬롯의 인덱스</param>
     public void ClearSlot(uint slotIndex)
     {
-        if(IsValidIndex(slotIndex, out InvenSlot slot))     // 인덱스가 정상범위인지 확인하고 슬롯 받아오기
+        if (IsValidIndex(slotIndex, out InvenSlot slot))     // 인덱스가 정상범위인지 확인하고 슬롯 받아오기
         {
             slot.ClearSlotItem();   // 해당 슬롯 비우기
         }
@@ -179,7 +180,7 @@ public class Inventory
     /// </summary>
     public void ClearInventory()
     {
-        foreach(var slot in slots)
+        foreach (var slot in slots)
         {
             slot.ClearSlotItem();
         }
@@ -192,13 +193,16 @@ public class Inventory
     /// <param name="to">위치 변경 도착 인덱스</param>
     public void MoveItem(uint from, uint to)
     {
-        if( from != to                                      // from과 to가 다른 슬롯이고 각각 적절한 슬롯일 때
-            && IsValidIndex(from, out InvenSlot fromSlot) 
+        if (from != to                                      // from과 to가 다른 슬롯이고 각각 적절한 슬롯일 때
+            && IsValidIndex(from, out InvenSlot fromSlot)
             && IsValidIndex(to, out InvenSlot toSlot))
         {
-            if( !fromSlot.IsEmpty ) // from에는 반드시 아이템이 들어있어야 한다.
+            if (!fromSlot.IsEmpty) // from에는 반드시 아이템이 들어있어야 한다.
             {
-                TempSlot.FromIndex = (toSlot is InvenTempSlot) ? from : null;   // toSlot이 임시 슬롯이면 FromIndex에 돌어갈 위치 설정
+                if (toSlot is InvenTempSlot)
+                {
+                    TempSlot.FromIndex = from;  // toSlot이 임시 슬롯이면 FromIndex에 돌어갈 위치 설정
+                }
 
                 if (fromSlot.ItemData == toSlot.ItemData)
                 {
@@ -215,33 +219,37 @@ public class Inventory
 
                     if (fromSlot is InvenTempSlot)
                     {
-                        // UI 붙이고 확인할 부분
-                        Debug.LogWarning("UI 붙이고 확인할 부분");
+                        // from이 임시 슬롯이다(= to는 일반 슬롯)
+                        // => temp슬롯에서 to슬롯으로 아이템을 옮기는 경우 => 드래그가 끝나는 상황
+                        // (일반적인 아이템 이동 마무리 상황)
+                        // (임시 슬롯에 있던 것이 to에 들어가고 to에 있던 것이 드래그 시작한 슬롯으로 돌아가야 하는 상황)
 
-                        //// from이 임시 슬롯이다(= to는 일반 슬롯)
-                        //// => temp슬롯에서 to슬롯으로 아이템을 옮기는 경우 => 드래그가 끝나는 상황
-                        //// (일반적인 아이템 이동 마무리 상황)
-                        //// (임시 슬롯에 있던 것이 to에 들어가고 to에 있던 것이 드래그 시작한 슬롯으로 돌아가야 하는 상황)
+                        if (TempSlot.FromIndex != null)
+                        {
+                            InvenSlot dragStartSlot = slots[TempSlot.FromIndex.Value];     // 드래그 시작한 슬롯 찾기
 
-                        //InvenSlot dragStartSlot = slots[TempSlot.FromIndex.Value];     // 드래그 시작한 슬롯 찾기
-
-                        //if(dragStartSlot.IsEmpty)
-                        //{
-                        //    // dragStartSlot이 비어있다.(드래그로 아이템 옮기기)
-                        //    dragStartSlot.AssignSlotItem(toSlot.ItemData, toSlot.ItemCount, toSlot.IsEquipped); // dragStartSlot에는 to 슬롯에 있는 아이템 옮기기
-                        //    toSlot.AssignSlotItem(TempSlot.ItemData, TempSlot.ItemCount, TempSlot.IsEquipped);  // to 슬롯에는 임시 슬롯에 있는 아이템 옮기기
-                        //    TempSlot.ClearSlotItem();
-                        //}
-                        //else
-                        //{
-                        //    // dragStartSlot에 아이템이 있다.(dragStartSlot 슬롯에서 아이템을 덜어낸 상황???)
-                        //    if ( dragStartSlot.ItemData == toSlot.ItemData)
-                        //    {
-                        //        dragStartSlot.IncreaseSlotItem(out uint overCount, toSlot.ItemCount);
-                        //        toSlot.DecreaseSlotItem(toSlot.ItemCount - overCount);
-                        //    }
-                        //    SwapSlot(TempSlot, toSlot);
-                        //}
+                            if (dragStartSlot.IsEmpty)
+                            {
+                                // dragStartSlot이 비어있다.(드래그로 아이템 옮기기)
+                                dragStartSlot.AssignSlotItem(toSlot.ItemData, toSlot.ItemCount, toSlot.IsEquipped); // dragStartSlot에는 to 슬롯에 있는 아이템 옮기기
+                                toSlot.AssignSlotItem(TempSlot.ItemData, TempSlot.ItemCount, TempSlot.IsEquipped);  // to 슬롯에는 임시 슬롯에 있는 아이템 옮기기
+                                TempSlot.ClearSlotItem();
+                            }
+                            else
+                            {
+                                // dragStartSlot에 아이템이 있다.(dragStartSlot 슬롯에서 아이템을 덜어낸 상황???)
+                                if (dragStartSlot.ItemData == toSlot.ItemData)
+                                {
+                                    dragStartSlot.IncreaseSlotItem(out uint overCount, toSlot.ItemCount);
+                                    toSlot.DecreaseSlotItem(toSlot.ItemCount - overCount);
+                                }
+                                SwapSlot(TempSlot, toSlot);
+                            }
+                        }
+                        else
+                        {
+                            SwapSlot(fromSlot, toSlot); // fromIndex가 비어있는 상황이면 그냥 스왑
+                        }
                     }
                     else
                     {
@@ -257,6 +265,27 @@ public class Inventory
     }
 
     /// <summary>
+    /// 인벤토리의 특정 슬롯에서 아이템을 일정량 분리하여 임시 슬롯으로 보내는 함수
+    /// </summary>
+    /// <param name="slotIndex">아이템을 분리할 슬롯</param>
+    /// <param name="count">분리할 개수</param>
+    public void SplitItem(uint slotIndex, uint count)
+    {
+        if (IsValidIndex(slotIndex, out InvenSlot slot))
+        {
+            count = Math.Min(count, slot.ItemCount);    // count가 슬롯에 들어있는 개수보다 크다면 슬롯에 들어있는 개수까지만 처리
+
+            TempSlot.AssignSlotItem(slot.ItemData, count);  // 임시 슬롯에 정해진 대로 넣고
+            TempSlot.FromIndex = slotIndex;                 // from 저장하고
+            slot.DecreaseSlotItem(count);                   // 대상 슬롯에서 감소                 
+
+#if PrintTestLog
+            Debug.Log($"아이템 분리 : [{slotIndex}]슬롯에서 [{count}]개 분리");
+#endif
+        }
+    }
+
+    /// <summary>
     /// 슬롯간에 스왑을 하는 함수
     /// </summary>
     /// <param name="slotA">대상1</param>
@@ -268,6 +297,21 @@ public class Inventory
         bool tempEquip = slotA.IsEquipped;
         slotA.AssignSlotItem(slotB.ItemData, slotB.ItemCount, slotB.IsEquipped);
         slotB.AssignSlotItem(tempData, tempCount, tempEquip);
+
+        // 임시 슬롯은 이제 FromIndex를 비운다
+        InvenTempSlot tempA = slotA as InvenTempSlot;
+        if (tempA != null)
+        {
+            tempA.FromIndex = null;
+        }
+        InvenTempSlot tempB = slotB as InvenTempSlot;
+        if (tempB != null)
+        {
+            tempB.FromIndex = null;
+        }
+#if PrintTestLog
+        Debug.Log($"슬롯 스왑 : [{slotA.Index}]슬롯과 [{slotB.Index}]슬롯을 서로 스왑");
+#endif
     }
 
     /// <summary>
@@ -285,7 +329,7 @@ public class Inventory
         {
             targetSlot = slots[index];
         }
-        else if(index == InvenTempSlot.TempSlotIndex)
+        else if (index == InvenTempSlot.TempSlotIndex)
         {
             targetSlot = TempSlot;
         }
@@ -294,32 +338,29 @@ public class Inventory
     }
 
 
+    // 아이템 덜어내서 임시슬롯에 저장(UI때 작업)
 
-
-
-    // 아이템 덜어내서 임시슬롯에 저장
     // 인벤토리 내 아이템 정렬
 
     /// <summary>
-    /// 인벤토리 정렬함수
+    /// 인벤토리를 정렬하는 함수
     /// </summary>
-    /// <param name="sortCriteria">정렬기준</param>
-    /// <param name="isAscending">true면 오름차순</param>
-    public void SlotSorting(ItemSortCriteria sortCriteria,bool isAscending = true)
+    /// <param name="sortCriteria">정렬 기준</param>
+    /// <param name="isAscending">true면 오름차순, false면 내림차순</param>
+    public void SlotSorting(ItemSortCriteria sortCriteria, bool isAscending = true)
     {
-        List<InvenSlot> sortList = new List<InvenSlot>(slots);  //정렬용 리스트 만들기 (slots 기반)
+        List<InvenSlot> sortList = new List<InvenSlot>(slots);  // 정렬용 리스트 만들기(slots 기반)
 
-        switch (sortCriteria)   //정렬방법에 따라 정렬
+        switch (sortCriteria)   // 정렬 방법에 따라 스위치 처리
         {
             case ItemSortCriteria.Code:
-
                 sortList.Sort((current, other) =>
                 {
-                    if (current.ItemData == null)
+                    if (current.ItemData == null)   // 비어있는 슬롯은 뒤로 보내기
                         return 1;
                     if (other.ItemData == null)
                         return -1;
-                    if(isAscending)
+                    if (isAscending)                 // 오름차순/내림차순에 따라 처리
                         return current.ItemData.code.CompareTo(other.ItemData.code);
                     else
                         return other.ItemData.code.CompareTo(current.ItemData.code);
@@ -328,42 +369,68 @@ public class Inventory
             case ItemSortCriteria.Name:
                 sortList.Sort((current, other) =>
                 {
-                    if (current.ItemData == null)
+                    if (current.ItemData == null)   // 비어있는 슬롯은 뒤로 보내기
                         return 1;
                     if (other.ItemData == null)
                         return -1;
-                    if (isAscending)
-                        return current.ItemData.name.CompareTo(other.ItemData.name);
+                    if (isAscending)                // 오름차순/내림차순에 따라 처리
+                        return current.ItemData.itemName.CompareTo(other.ItemData.itemName);
                     else
-                        return other.ItemData.name.CompareTo(current.ItemData.name);
+                        return other.ItemData.itemName.CompareTo(current.ItemData.itemName);
                 });
                 break;
             case ItemSortCriteria.Price:
                 sortList.Sort((current, other) =>
                 {
-                    if (current.ItemData == null)
+                    if (current.ItemData == null)   // 비어있는 슬롯은 뒤로 보내기
                         return 1;
                     if (other.ItemData == null)
                         return -1;
-                    if (isAscending)
+                    if (isAscending)                // 오름차순/내림차순에 따라 처리
                         return current.ItemData.price.CompareTo(other.ItemData.price);
                     else
                         return other.ItemData.price.CompareTo(current.ItemData.price);
                 });
                 break;
+            default:
+                break;
         }
-        //정렬된 데이터를 기준으로 데이터 따로 저장(직점 sortList를 사용하면 데이터가 섞이게 된다.(참조를 저장하고 있기 때문에))
-        List<(ItemData, uint, bool)> sortedData = new List<(ItemData, uint, bool)>(SlotCount);
-        foreach (var sort in sortList)
-        {
-            sortedData.Add((sort.ItemData,sort.ItemCount,sort.IsEquipped));
-        }
-        int index = 0;
 
+        // 정렬된 데이터를 기준으로 데이터 따로 저장(직접 sortList를 사용하면 데이터가 섞이게 된다(참조를 저장하고 있기 때문에))
+        List<(ItemData, uint, bool)> sortedData = new List<(ItemData, uint, bool)>(SlotCount);
+        foreach (var slot in sortList)
+        {
+            sortedData.Add((slot.ItemData, slot.ItemCount, slot.IsEquipped));
+        }
+
+        int index = 0;
         foreach (var data in sortedData)
         {
-            slots[index].AssignSlotItem(data.Item1,data.Item2,data.Item3);
+            slots[index].AssignSlotItem(data.Item1, data.Item2, data.Item3);// 따로 저장한 내용 순서대로 슬롯에 설정
             index++;
+        }
+    }
+    /// <summary>
+    /// 인벤토리에서 같은 종류의 아이템을 최대한 합치는 작업을 하는 함수
+    /// </summary>
+    public void MergeItems()
+    {
+        uint count = (uint)(slots.Length - 1);
+        for(uint i = 0; i < count; i++)
+        {
+            InvenSlot slot = slots[i];
+            for(uint j = count; j > i; j--)
+            {
+                if (slot.ItemData == slots[j].ItemData)
+                {
+                    MoveItem(j,i);
+                    if (!slots[j].IsEmpty)
+                    {
+                        SwapSlot(slots[i + 1], slots[j]);
+                        break;
+                    }
+                }
+            }
         }
     }
 

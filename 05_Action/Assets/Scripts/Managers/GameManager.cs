@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ItemDataManager))]
 public class GameManager : Singleton<GameManager>
 {
+    InventoryUI inventoryUI;
     Player player;
     public Player Player => player;
 
@@ -15,6 +16,10 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public ItemDataManager ItemData => itemDataManager;
 
+    /// <summary>
+    /// 인벤토리 UI 접근용 프로퍼티(Get)
+    /// </summary>
+    public InventoryUI InventoryUI => inventoryUI;
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
@@ -25,5 +30,8 @@ public class GameManager : Singleton<GameManager>
     {
         base.OnInitialize();
         player = FindAnyObjectByType<Player>();
+        inventoryUI = FindAnyObjectByType<InventoryUI>();
+
+        player?.Initialize();
     }
 }

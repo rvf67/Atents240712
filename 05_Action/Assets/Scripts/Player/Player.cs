@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInputController), typeof(PlayerMovement), typeof(PlayerAttack))]
-public class Player : MonoBehaviour
+[RequireComponent(typeof(PlayerInputController))]
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerAttack),typeof(PlayerInventory))]
+public class Player : MonoBehaviour ,IInitializable
 {
+    PlayerInventory inventory;
+    public Inventory Inventory => inventory.Inventory;
     // 컴포넌트 들
     CharacterController characterController;
 
@@ -26,5 +30,13 @@ public class Player : MonoBehaviour
         inputController.onMoveModeChange += movement.ToggleMoveMode;
         inputController.onAttack += attack.OnAttackInput;
 
+    }
+    public void Initialize()
+    {
+        IInitializable[] inits = GetComponents<IInitializable>();
+        foreach(var init in inits)
+        {
+            init.Initialize();
+        }
     }
 }

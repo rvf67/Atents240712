@@ -56,7 +56,7 @@ public class SlotUI_Base : MonoBehaviour
     /// </summary>
     void Refresh()
     {
-        if (InvenSlot.IsEmpty)
+        if(InvenSlot.IsEmpty)
         {
             // 슬롯이 비어있다.
             itemIcon.color = Color.clear;       // 아이콘 투명하게 만들고
