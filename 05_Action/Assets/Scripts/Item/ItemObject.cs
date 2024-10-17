@@ -14,7 +14,7 @@ public class ItemObject : RecycleObject
         {
             if (data == null)   // 활성화 이후에 단 한번만 설정 가능
             {
-                data = value;
+                data = value;   
                 spriteRenderer.sprite = data.itemIcon;  // 아이콘 변경
             }
         }
