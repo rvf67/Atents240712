@@ -17,8 +17,17 @@ public class InventoryUI : MonoBehaviour
     /// 인벤토리에 들어있는 Slot들의 UI 모음
     /// </summary>
     InvenSlotUI[] slotsUIs;
-    
+
+    /// <summary>
+    /// 아이템 정렬용 패널
+    /// </summary>
     SortPanelUI sortPanelUI;
+
+    /// <summary>
+    /// 돈 표시용 패널
+    /// </summary>
+    MoneyPanelUI moneyPanelUI;
+
     /// <summary>
     /// 상세 정보창
     /// </summary>
@@ -55,14 +64,17 @@ public class InventoryUI : MonoBehaviour
         child = transform.GetChild(2);
         sortPanelUI = child.GetComponent<SortPanelUI>();
 
-        child = transform.GetChild(5);
-        tempSlotUI = child.GetComponent<InvenTempSlotUI>();
-
         child = transform.GetChild(3);
-        detailInfoUI = child.GetComponent<DetailInfoUI>();
+        moneyPanelUI = child.GetComponent<MoneyPanelUI>();
 
         child = transform.GetChild(4);
+        detailInfoUI = child.GetComponent<DetailInfoUI>();
+
+        child = transform.GetChild(5);
         itemSpliterUI = child.GetComponent<ItemSpliterUI>();
+
+        child = transform.GetChild(6);
+        tempSlotUI = child.GetComponent<InvenTempSlotUI>();
     }
 
     private void OnEnable()
@@ -92,23 +104,23 @@ public class InventoryUI : MonoBehaviour
             slotsUIs[i].onPointerExit += OnItemDetailInfoClose;
             slotsUIs[i].onPointerMove += OnSlotPointerMove;
         }
+
         sortPanelUI.onSortRequest += (sort) =>
         {
-            bool isAscending = true;
-            if(sort==ItemSortCriteria.Price)
+            bool isAcending = true;
+            if (sort == ItemSortCriteria.Price)
             {
-                isAscending = false;    //가격만 내림차순으로 정렬
+                isAcending = false; // 가격만 내림차순으로 정렬
             }
             inven.MergeItems();
-            inven.SlotSorting(sort,isAscending);
+            inven.SlotSorting(sort, isAcending);
         };
-
-        tempSlotUI.InitializeSlot(inven.TempSlot);      // TempSlotUI 초기화
 
         itemSpliterUI.onOkClick += OnSpliterOK;
         itemSpliterUI.onCancelClick += OnSpliterCancel;
 
-        // Close();     // 임시 주석 처리
+        tempSlotUI.InitializeSlot(inven.TempSlot);      // TempSlotUI 초기화
+        Close();
     }
 
     /// <summary>
@@ -130,7 +142,8 @@ public class InventoryUI : MonoBehaviour
         if (index.HasValue)
         {
             inven.MoveItem(tempSlotUI.Index, index.Value);
-            if (tempSlotUI.InvenSlot.IsEmpty)
+
+            if(tempSlotUI.InvenSlot.IsEmpty)        // 임시슬롯이 비어있을 때만 상세정보창 열기
             {
                 detailInfoUI.IsPaused = false;      // 상세정보창 일시 정지 해제
                 detailInfoUI.Open(inven[index.Value].ItemData);
@@ -238,6 +251,9 @@ public class InventoryUI : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-
+    public void Test_Open()
+    {
+        Open();
+    }
 #endif
 }

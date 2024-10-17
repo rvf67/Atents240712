@@ -31,6 +31,7 @@ public class Test06_InventoryUI : TestBase
         inven.AddItem(ItemCode.Sapphire, 5);
 
         inventoryUI.InitializeInventory(inven);
+        inventoryUI.Test_Open();
     }
 
     protected override void OnTest1(InputAction.CallbackContext context)

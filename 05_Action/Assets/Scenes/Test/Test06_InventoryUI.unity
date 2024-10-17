@@ -739,7 +739,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1088104843}
     m_Modifications:
-    - target: {fileID: 401335651167245899, guid: 3927fb4c85932454abfbf8b3fdea4ece,
+    - target: {fileID: 895257510795145713, guid: 3927fb4c85932454abfbf8b3fdea4ece,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147036489884572907, guid: 3927fb4c85932454abfbf8b3fdea4ece,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -748,11 +753,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventoryUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176378908448949702, guid: 3927fb4c85932454abfbf8b3fdea4ece,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8937228964886075073, guid: 3927fb4c85932454abfbf8b3fdea4ece,
         type: 3}
