@@ -35,12 +35,12 @@ public class Inventory
     /// <summary>
     /// 인벤토리의 수요자
     /// </summary>
-    PlayerInventory owner;
+    Player owner;
 
     /// <summary>
     /// 소유자 확인용 프로퍼티
     /// </summary>
-    public PlayerInventory Owner => owner;
+    public Player Owner => owner;
 
     /// <summary>
     /// 인벤토리 슬롯에 접근하기 위한 인덱서
@@ -59,7 +59,7 @@ public class Inventory
     /// </summary>
     /// <param name="owner">인벤토리의 소유자</param>
     /// <param name="size">인벤토리의 크기(기본값은 6)</param>
-    public Inventory(PlayerInventory owner, uint size = Default_Inventory_Size)
+    public Inventory(Player owner, uint size = Default_Inventory_Size)
     {
         slots = new InvenSlot[size];
         for (uint i = 0; i < slots.Length; i++)

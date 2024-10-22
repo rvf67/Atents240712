@@ -216,6 +216,11 @@ public class InvenSlot
     /// <param name="target">아이템을 장비할 대상</param>
     public void EquipItem(GameObject target)
     {
+        IEquipable equipable = ItemData as IEquipable;
+        if (equipable != null)
+        {
+            equipable.ToggleEquip(target, this);    // 장비 시도는 무조건 토글로 처리
+        }
     }
 
     /// <summary>
@@ -224,5 +229,22 @@ public class InvenSlot
     /// <param name="target">아이템의 효과를 받을 대상</param>
     public void UseItem(GameObject target)
     {
+        IUsable usable = ItemData as IUsable;
+        if (usable != null)         // 사용 가능한 아이템이면
+        {
+            if(usable.Use(target))  // 아이템 사용 시도
+            {
+                DecreaseSlotItem(); // 아이템 사용에 성공하면 1개 감소
+            }
+        }
+    }
+
+    /// <summary>
+    /// 델리게이트 연결 초기화 함수
+    /// </summary>
+    public void ClearDeletegates()
+    {
+        onSlotItemChange = null;
+        onItemEquip = null;
     }
 }

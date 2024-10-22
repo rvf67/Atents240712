@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System;
+using static UnityEngine.UI.GridLayoutGroup;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class InventoryUI : MonoBehaviour
@@ -48,6 +49,11 @@ public class InventoryUI : MonoBehaviour
 
     // On/Off용
     CanvasGroup canvasGroup;
+
+    /// <summary>
+    /// 인벤토리 소유주 확인용 프로퍼티
+    /// </summary>
+    public Player Owner => inven.Owner;
 
     private void Awake()
     {
@@ -116,6 +122,10 @@ public class InventoryUI : MonoBehaviour
             inven.SlotSorting(sort, isAcending);
         };
 
+        Owner.PlayerInventory.onMoneyChange += moneyPanelUI.Refresh;
+        moneyPanelUI.Refresh(Owner.PlayerInventory.Money);
+        
+
         itemSpliterUI.onOkClick += OnSpliterOK;
         itemSpliterUI.onCancelClick += OnSpliterCancel;
 
@@ -163,6 +173,12 @@ public class InventoryUI : MonoBehaviour
             if (isShiftPress)
             {
                 ItemSpliterOpen(index); // 쉬프트가 눌려져 있는 상태에서 클릭이 되었다면 아이템 분리창을 열어라
+            }
+            else
+            {
+                // 쉬프트를 누르지 않았다면 아이템 사용이 목적                    
+                inven[index].UseItem(Owner.gameObject);     // 아이템 사용 시도
+                inven[index].EquipItem(Owner.gameObject);   // 아이템 장비 시도
             }
         }
         else
@@ -222,8 +238,20 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 마우스 버튼이 떨어지면 실행
+    /// </summary>
+    /// <param name="_"></param>
     private void OnItemDrop(InputAction.CallbackContext _)
     {
+        Vector2 screen = Mouse.current.position.ReadValue();
+        Vector2 diff = screen - (Vector2)transform.position;
+
+        RectTransform rectTransform = (RectTransform)transform;
+        if(!rectTransform.rect.Contains(diff))  // 인벤토리 영역 밖이면
+        {
+            tempSlotUI.ItemDrop(screen);        // 임시 슬롯에 있는 아이템을 screen좌표를 월드좌표로 변환한 위치에 아이템 드랍
+        }
     }
 
     void Open()

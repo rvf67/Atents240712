@@ -8,13 +8,22 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     /// <summary>
-    /// 인벤토리 확인용 프로퍼티(테스트용)
+    /// 인벤토리 데이터 확인용 프로퍼티(테스트용)
     /// </summary>
-    public Inventory Inventory => inventory.Inventory;
+    public Inventory InventoryData => inventory.Inventory;
+
+    /// <summary>
+    /// 아이템 획득가능 범위 확인용 프로퍼티(아이템을 버릴 수 있는 최대 거리)
+    /// </summary>
+    public float ItemPickupRange => inventory.itemPickupRange;
+
+    /// <summary>
+    /// 플레이어 인벤토리에 접근하기 위한 프로퍼티
+    /// </summary>
+    public PlayerInventory PlayerInventory => inventory;
 
     // 컴포넌트 들
     CharacterController characterController;
-
     PlayerInputController inputController;
     PlayerMovement movement;
     PlayerAttack attack;
@@ -33,7 +42,7 @@ public class Player : MonoBehaviour
         inputController.onMove += movement.SetDirection;
         inputController.onMoveModeChange += movement.ToggleMoveMode;
         inputController.onAttack += attack.OnAttackInput;
-
+        inputController.onPickUp += inventory.GetPickupItems;
     }
 
     public void Initialize()

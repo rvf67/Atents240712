@@ -34,7 +34,7 @@ public class ItemObject : RecycleObject
     /// <summary>
     /// 아이템이 먹혀서 비활성화 되는 함수
     /// </summary>
-    public void CollectedItem()
+    public void ItemCollected()
     {
         gameObject.SetActive(false);
     }

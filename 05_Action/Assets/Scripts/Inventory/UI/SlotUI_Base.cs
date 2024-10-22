@@ -44,10 +44,10 @@ public class SlotUI_Base : MonoBehaviour
     /// </summary>
     /// <param name="slot"></param>
     public virtual void InitializeSlot(InvenSlot slot)
-    {
+    {        
         invenSlot = slot;   // 슬롯 저장        
-        invenSlot.onSlotItemChange -= Refresh;   // (다시 초기화가 되었을 때를 대비한 코드)
-        invenSlot.onSlotItemChange += Refresh;   // 아이템 변경이 있을 때 화면 갱신
+        invenSlot.ClearDeletegates();           // (다시 초기화가 되었을 때를 대비한 코드)
+        invenSlot.onSlotItemChange += Refresh;  // 아이템 변경이 있을 때 화면 갱신
         Refresh();          // 첫 화면 갱신
     }
 

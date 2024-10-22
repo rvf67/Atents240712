@@ -5,12 +5,20 @@ using UnityEngine;
 [RequireComponent(typeof(ItemDataManager))]
 public class GameManager : Singleton<GameManager>
 {
+    Player player;
+    PlayerStatus status;
+    ItemDataManager itemDataManager;
     InventoryUI inventoryUI;
 
-    Player player;
+    /// <summary>
+    /// 플레이어 접근용 프로퍼티
+    /// </summary>
     public Player Player => player;
 
-    ItemDataManager itemDataManager;
+    /// <summary>
+    /// 플레이어 스테이터스 접근용 프로퍼티
+    /// </summary>
+    public PlayerStatus Status => status;
 
     /// <summary>
     /// ItemDataManager. 인덱서로 개별 아이템 데이터에 접근 가능
@@ -31,7 +39,10 @@ public class GameManager : Singleton<GameManager>
     protected override void OnInitialize()
     {
         base.OnInitialize();
+        
         player = FindAnyObjectByType<Player>();
+        status = player.GetComponent<PlayerStatus>();
+
         inventoryUI = FindAnyObjectByType<InventoryUI>();
 
         player?.Initialize();
